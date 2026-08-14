@@ -1,0 +1,115 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+  /* Indigo & natural cotton — the block-print palette: unbleached cotton paper,
+     soft indigo ink, natural-indigo as the primary accent, khadi olive, and a
+     muted turmeric warm note. (Token name --color-clay is kept for class
+     compatibility but now holds the indigo primary.) */
+  --color-cream: #ece7db;
+  --color-cream-deep: #dcd4c1;
+  --color-ink: #26282e;
+  --color-ink-soft: #575a63;
+  --color-sage: #4a5440;
+  --color-sage-mid: #6a7353;
+  --color-sage-light: #97a07b;
+  --color-clay: #3c4c67;
+  --color-clay-soft: #7c93be;
+  --color-gold: #b98a44;
+  --color-indigo: #3c4c67;
+  --color-walnut: #6e4a2a;
+}
+
+:root {
+  color-scheme: light;
+}
+
+/* Reset lives in @layer base so Tailwind's (later) utilities win — an
+   unlayered reset silently beats every px-*/py-* utility site-wide. */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--color-clay);
+  color: var(--color-cream);
+}
+
+/* Fine grain texture overlay for warmth */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Display type refinements */
+.font-serif {
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* Visible keyboard focus everywhere */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid var(--color-clay);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Respect reduced-motion: neutralise CSS animation/transition/scroll motion.
+   JS-driven motion (R3F canvas, Lenis, counters, Framer) is handled in code. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
