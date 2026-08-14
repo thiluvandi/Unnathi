@@ -38,17 +38,16 @@ export function Nav() {
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
+        initial={{ y: -80 }}
+        animate={{ y: 0 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
       >
         <nav
-          className={`flex w-full max-w-6xl items-center justify-between rounded-full border px-5 py-2.5 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 ${
-            scrolled || open
-              ? 'border-ink/10 bg-cream/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_10px_34px_-14px_rgba(32,28,22,0.3)]'
-              : 'border-ink/10 bg-cream/60 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_8px_26px_-16px_rgba(32,28,22,0.3)]'
-          }`}
+          className={`flex w-full max-w-6xl items-center justify-between rounded-full border px-5 py-2.5 backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 ${scrolled || open
+            ? 'border-ink/10 bg-cream/38 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_10px_34px_-14px_rgba(32,28,22,0.3)]'
+            : 'border-ink/10 bg-cream/38 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_8px_26px_-16px_rgba(32,28,22,0.3)]'
+            }`}
         >
           <Logo />
 
