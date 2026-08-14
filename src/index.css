@@ -27,7 +27,7 @@
 }
 
 /* Reset lives in @layer base so Tailwind's (later) utilities win — an
-   unlayered reset silently beats every px-*/py-* utility site-wide. */
+   unlayered reset silently beats every padding/margin utility site-wide. */
 @layer base {
   * {
     margin: 0;
