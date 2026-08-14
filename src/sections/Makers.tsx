@@ -1,6 +1,31 @@
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal } from '../components/Reveal'
 
+const spring = { type: 'spring', stiffness: 260, damping: 26 } as const
+
 export function Makers() {
+  const [expanded, setExpanded] = useState(false)
+
+  // While the photo is expanded: lock background scroll, pause Lenis, Esc closes.
+  useEffect(() => {
+    if (!expanded) return
+    const lenis = (
+      window as unknown as { __lenis?: { stop: () => void; start: () => void } }
+    ).__lenis
+    lenis?.stop()
+    document.body.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setExpanded(false)
+    }
+    document.addEventListener('keydown', onKey)
+    return () => {
+      lenis?.start()
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [expanded])
+
   return (
     <section id="makers" className="mx-auto max-w-6xl px-6 py-28 md:py-40">
       <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
@@ -32,10 +57,13 @@ export function Makers() {
 
           <Reveal delay={0.15}>
             <div className="mt-8 flex items-center gap-4">
-              <img
+              <motion.img
+                layoutId="team-photo"
+                transition={spring}
+                onClick={() => setExpanded(true)}
                 src="/media/team.jpg"
                 alt="The Unnathi Creatives team in the studio"
-                className="h-16 w-24 rounded-xl object-cover"
+                className="h-16 w-24 cursor-zoom-in rounded-xl object-cover"
               />
               <span className="text-sm text-ink-soft">
                 The team behind it all, in the Unnathi studio.
@@ -44,6 +72,32 @@ export function Makers() {
           </Reveal>
         </div>
       </div>
+
+      {/* Click the team photo to expand it; click the backdrop (or press Esc) to close. */}
+      <AnimatePresence>
+        {expanded && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex cursor-zoom-out items-center justify-center bg-ink/80 p-6 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setExpanded(false)}
+            role="dialog"
+            aria-modal="true"
+            aria-label="The Unnathi Creatives team"
+          >
+            <motion.img
+              layoutId="team-photo"
+              transition={spring}
+              onClick={(e) => e.stopPropagation()}
+              src="/media/team.jpg"
+              alt="The Unnathi Creatives team in the studio"
+              className="max-h-[82vh] max-w-[92vw] cursor-default rounded-2xl object-cover shadow-2xl"
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
