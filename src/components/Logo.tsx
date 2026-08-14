@@ -21,15 +21,14 @@ export function LogoMark({ className = '' }: { className?: string }) {
   )
 }
 
-export function Logo({ className = '' }: { className?: string }) {
+/** Just the visual mark + wordmark, with no wrapping link — for contexts (like
+ *  a collapsed nav button) that need their own click behaviour instead of
+ *  navigating home. */
+export function LogoContent({ className = '' }: { className?: string }) {
   const [useImg, setUseImg] = useState(true)
 
   return (
-    <a
-      href="#top"
-      className={`flex items-center gap-2.5 ${className}`}
-      aria-label="Unnathi Creatives — home"
-    >
+    <span className={`flex items-center gap-2.5 ${className}`}>
       {useImg ? (
         // Drop a transparent-background logo at public/logo.png to use the real one.
         <img
@@ -51,6 +50,14 @@ export function Logo({ className = '' }: { className?: string }) {
           </span>
         </>
       )}
+    </span>
+  )
+}
+
+export function Logo({ className = '' }: { className?: string }) {
+  return (
+    <a href="#top" className={className} aria-label="Unnathi Creatives — home">
+      <LogoContent />
     </a>
   )
 }
