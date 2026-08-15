@@ -9,7 +9,7 @@ const links = [
   { label: 'Products', href: '/#products' },
   { label: 'Impact', href: '/#impact' },
   { label: 'About Us', href: '/about' },
-  { label: 'Contact', href: '/#contact' },
+  { label: 'Contact / Support Us', href: '/#contact' },
 ]
 
 /** Small ">" indicator shown next to the logo when the desktop nav is collapsed. */
