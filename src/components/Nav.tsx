@@ -1,13 +1,15 @@
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { Logo, LogoContent } from './Logo'
 
 const links = [
-  { label: 'What We Do', href: '#work' },
-  { label: 'Our Way', href: '#approach' },
-  { label: 'Products', href: '#products' },
-  { label: 'Impact', href: '#impact' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'What We Do', href: '/#work' },
+  { label: 'Our Way', href: '/#approach' },
+  { label: 'Products', href: '/#products' },
+  { label: 'Impact', href: '/#impact' },
+  { label: 'About Us', href: '/about' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 /** Small ">" indicator shown next to the logo when the desktop nav is collapsed. */
@@ -52,16 +54,24 @@ function ChevronToggle({ open, className = '' }: { open: boolean; className?: st
   )
 }
 
+function NavLink({ href, children, className, onClick }: { href: string; children: ReactNode; className: string; onClick?: () => void }) {
+  if (href.startsWith('/') && !href.startsWith('/#')) {
+    return <Link to={href} className={className} onClick={onClick}>{children}</Link>
+  }
+  return <a href={href} className={className} onClick={onClick}>{children}</a>
+}
+
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [hovered, setHovered] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const location = useLocation()
   const { scrollY } = useScroll()
   useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 40))
 
-  // Collapsed once scrolled, unless a mouse (not touch) is hovering it open.
-  const chip = scrolled && !hovered
+  // Never collapse on the /about page — it doesn't have a long scroll
+  const chip = scrolled && !hovered && location.pathname === '/'
 
   // When the menu is open: lock scroll, pause Lenis, Esc closes, focus first link.
   useEffect(() => {
@@ -160,19 +170,19 @@ export function Nav() {
                 <ul className="absolute inset-0 hidden items-center justify-center gap-7 md:flex">
                   {links.map((l) => (
                     <li key={l.href}>
-                      <a
+                      <NavLink
                         href={l.href}
                         className="group relative text-sm font-medium text-ink-soft transition-colors hover:text-ink"
                       >
                         {l.label}
                         <span className="absolute -bottom-1 left-0 h-px w-0 bg-clay transition-all duration-300 group-hover:w-full" />
-                      </a>
+                      </NavLink>
                     </li>
                   ))}
                 </ul>
 
                 <a
-                  href="#contact"
+                  href="/#contact"
                   className="ml-auto hidden rounded-full bg-sage px-5 py-2 text-sm font-medium text-cream transition-all duration-300 hover:bg-ink hover:shadow-lg md:inline-flex"
                 >
                   Support Us
@@ -213,20 +223,20 @@ export function Nav() {
           >
             <nav className="flex flex-col">
               {links.map((l) => (
-                <a
+                <NavLink
                   key={l.href}
                   href={l.href}
                   onClick={() => setOpen(false)}
                   className="border-b border-ink/10 py-4 font-serif text-3xl font-light text-ink"
                 >
                   {l.label}
-                </a>
+                </NavLink>
               ))}
             </nav>
 
             <div className="flex flex-col gap-5">
               <a
-                href="#contact"
+                href="/#contact"
                 onClick={() => setOpen(false)}
                 className="w-full rounded-full bg-clay py-4 text-center text-sm font-medium text-cream"
               >

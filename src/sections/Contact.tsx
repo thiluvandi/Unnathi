@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
 
 export function Contact() {
@@ -59,9 +60,9 @@ export function Footer() {
           © {new Date().getFullYear()} Unnathi Creatives · Made by hand, fairly paid
         </p>
         <div className="flex gap-6 text-xs">
-          <a href="#work" className="transition-colors hover:text-cream">
+          <Link to="/about" className="transition-colors hover:text-cream">
             About
-          </a>
+          </Link>
           <a href="#products" className="transition-colors hover:text-cream">
             Products
           </a>
