@@ -99,7 +99,7 @@ export default function About() {
                 className="overflow-hidden rounded-2xl"
               >
                 <video
-                  src="/media/printing-wide.mp4"
+                  src="/Use_the_provided_six_panel_ill.mp4"
                   autoPlay
                   loop
                   muted
