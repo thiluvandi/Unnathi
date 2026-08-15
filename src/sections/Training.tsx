@@ -48,12 +48,45 @@ export function Training() {
     targetTime.current = s
   })
 
-  // Chase the target with one seek in flight at a time. Firing a new
-  // currentTime on every scroll tick piles up seeks the decoder can't finish
-  // (the "stuck" scrub); waiting for `seeked` keeps it smooth.
+  // iOS Safari throttles rapid currentTime assignments — use seeked-chaining
+  // so only one seek is in flight at a time, then immediately re-seek if the
+  // target moved while we were waiting. Falls back to rAF on desktop.
   useEffect(() => {
     const v = video.current
     if (!v) return
+
+    const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent)
+
+    if (isIOS) {
+      const onSeeked = () => {
+        if (!v.duration || Number.isNaN(v.duration)) return
+        const target = Math.min(targetTime.current, v.duration - 0.05)
+        if (Math.abs(v.currentTime - target) > 0.05) v.currentTime = target
+      }
+      v.addEventListener('seeked', onSeeked)
+
+      // Kick off initial seek and poll lightly so new scroll positions trigger a seek
+      let raf = 0
+      let last = -1
+      const poll = () => {
+        if (!v.seeking) {
+          const target = Math.min(targetTime.current, (v.duration || 0) - 0.05)
+          if (Math.abs(target - last) > 0.05) {
+            last = target
+            v.currentTime = target
+          }
+        }
+        raf = requestAnimationFrame(poll)
+      }
+      raf = requestAnimationFrame(poll)
+
+      return () => {
+        cancelAnimationFrame(raf)
+        v.removeEventListener('seeked', onSeeked)
+      }
+    }
+
+    // Desktop: rAF loop, one seek per frame when not already seeking
     let raf = 0
     const tick = () => {
       if (v.duration && !Number.isNaN(v.duration) && !v.seeking) {
