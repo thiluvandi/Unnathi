@@ -10,7 +10,7 @@ export function Contact() {
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(185,138,68,0.28),_transparent_65%)]" />
       <div className="relative mx-auto max-w-4xl px-6 text-center">
         <Reveal>
-          <p className="eyebrow text-clay-soft">Support us</p>
+          <p className="eyebrow text-clay-soft">Contact / Support Us</p>
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="mx-auto mt-6 max-w-3xl font-serif text-5xl leading-[1.02] font-light md:text-7xl">
