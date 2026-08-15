@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 /** Unnathi Creatives mark — two figures forming an "S". Recreated as SVG so it
  *  renders crisp in any colour (uses currentColor). Used as a fallback until a
@@ -56,8 +57,8 @@ export function LogoContent({ className = '' }: { className?: string }) {
 
 export function Logo({ className = '' }: { className?: string }) {
   return (
-    <a href="#top" className={className} aria-label="Unnathi Creatives — home">
+    <Link to="/" className={className} aria-label="Unnathi Creatives — home">
       <LogoContent />
-    </a>
+    </Link>
   )
 }
