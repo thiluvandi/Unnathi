@@ -41,6 +41,19 @@ export function Contact() {
             </a>
           </div>
         </Reveal>
+
+        <Reveal delay={0.2}>
+          <a
+            href="https://maps.app.goo.gl/NUvSvJtN4cj2Y9hL8"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-block max-w-xs text-sm leading-relaxed text-cream/50 transition-colors hover:text-cream/80"
+          >
+            No 316 A, Shree Rama Nilaya, 3rd A Cross, 5th Main Rd,<br />
+            Block 2, 3rd Stage, Basaveshwar Nagar,<br />
+            Bengaluru, Karnataka 560079
+          </a>
+        </Reveal>
       </div>
     </section>
   )
