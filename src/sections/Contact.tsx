@@ -47,11 +47,22 @@ export function Contact() {
             href="https://maps.app.goo.gl/NUvSvJtN4cj2Y9hL8"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-block max-w-xs text-sm leading-relaxed text-cream/50 transition-colors hover:text-cream/80"
+            className="mt-6 inline-flex items-start gap-3 rounded-full border border-cream/25 px-8 py-4 text-sm leading-relaxed text-cream transition-all hover:-translate-y-0.5 hover:border-cream"
           >
-            No 316 A, Shree Rama Nilaya, 3rd A Cross, 5th Main Rd,<br />
-            Block 2, 3rd Stage, Basaveshwar Nagar,<br />
-            Bengaluru, Karnataka 560079
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="mt-0.5 h-4 w-4 shrink-0 text-cream/70"
+              aria-hidden
+            >
+              <path fillRule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-2.003 3.5-4.697 3.5-8.327a8 8 0 10-16 0c0 3.63 1.556 6.326 3.5 8.327a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.144.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+            </svg>
+            <span className="text-left">
+              No 316 A, Shree Rama Nilaya, 3rd A Cross, 5th Main Rd,<br />
+              Block 2, 3rd Stage, Basaveshwar Nagar,<br />
+              Bengaluru, Karnataka 560079
+            </span>
           </a>
         </Reveal>
       </div>
