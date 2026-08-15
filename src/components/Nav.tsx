@@ -181,13 +181,6 @@ export function Nav() {
                   ))}
                 </ul>
 
-                <a
-                  href="/#contact"
-                  className="ml-auto hidden rounded-full bg-sage px-5 py-2 text-sm font-medium text-cream transition-all duration-300 hover:bg-ink hover:shadow-lg md:inline-flex"
-                >
-                  Support Us
-                </a>
-
                 {/* Mobile menu toggle (expanded state) */}
                 <button
                   type="button"
