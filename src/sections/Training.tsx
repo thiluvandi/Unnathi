@@ -72,7 +72,19 @@ export function Training() {
   )
 
   const onLoaded = () => {
-    if (video.current) video.current.currentTime = 0.001
+    const v = video.current
+    if (!v) return
+    const activate = v.play()
+    if (activate !== undefined) {
+      activate.then(() => {
+        v.pause()
+        v.currentTime = 0.001
+      }).catch(() => {
+        v.currentTime = 0.001
+      })
+    } else {
+      v.currentTime = 0.001
+    }
   }
 
   return (
