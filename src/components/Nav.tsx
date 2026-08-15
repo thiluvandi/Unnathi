@@ -89,60 +89,74 @@ export function Nav() {
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
         className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
       >
-        <motion.nav
-          layout
-          transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+        <div className="w-full max-w-6xl">
+        <nav
           onMouseEnter={() => {
-            // Ignore synthetic hover events fired by touch taps.
             if (window.matchMedia('(hover: hover)').matches) setHovered(true)
           }}
           onMouseLeave={() => setHovered(false)}
-          className={`flex items-center overflow-hidden rounded-full border backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-500 ${
-            chip ? 'mr-auto px-4 py-2.5' : 'w-full max-w-6xl justify-between px-5 py-2.5'
+          className={`flex items-center overflow-hidden rounded-full border backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 ease-out w-full px-4 py-2.5 ${
+            chip ? 'max-w-fit' : 'max-w-full'
           } ${
             scrolled || open
               ? 'border-ink/10 bg-cream/38 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_10px_34px_-14px_rgba(32,28,22,0.3)]'
               : 'border-ink/10 bg-cream/38 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_8px_26px_-16px_rgba(32,28,22,0.3)]'
           }`}
         >
-          <AnimatePresence mode="popLayout" initial={false}>
-            {chip ? (
-              <motion.div
-                key="chip"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.18 }}
-                className="flex items-center gap-1.5"
-              >
-                {/* Desktop: logo stays a real link (navigates home); hover expands via the nav's own handlers. */}
-                <Logo className="hidden md:flex" />
-                <ChevronRight className="hidden text-ink-soft md:block" />
+          {/* Logo — always rendered, never swapped, so it stays in place during collapse/expand */}
+          <div className="flex shrink-0 items-center gap-1.5">
+            <Logo className="hidden md:flex" />
 
-                {/* Mobile: the whole chip acts as the menu toggle instead of a link. */}
-                <button
-                  type="button"
-                  onClick={() => setOpen((o) => !o)}
-                  aria-label={open ? 'Close menu' : 'Open menu'}
-                  aria-expanded={open}
-                  aria-controls="mobile-menu"
-                  className="flex items-center gap-1.5 md:hidden"
+            {/* Mobile: whole logo area is the menu toggle */}
+            <button
+              type="button"
+              onClick={() => setOpen((o) => !o)}
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              className="flex items-center gap-1.5 md:hidden"
+            >
+              <LogoContent />
+              <AnimatePresence>
+                {chip && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: 'auto' }}
+                    exit={{ opacity: 0, width: 0 }}
+                    transition={{ duration: 0.18 }}
+                  >
+                    <ChevronToggle open={open} className="text-ink-soft" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </button>
+
+            {/* Desktop collapsed chevron */}
+            <AnimatePresence>
+              {chip && (
+                <motion.span
+                  initial={{ opacity: 0, width: 0 }}
+                  animate={{ opacity: 1, width: 'auto' }}
+                  exit={{ opacity: 0, width: 0 }}
+                  transition={{ duration: 0.18 }}
+                  className="hidden md:inline-flex"
                 >
-                  <LogoContent />
-                  <ChevronToggle open={open} className="text-ink-soft" />
-                </button>
-              </motion.div>
-            ) : (
+                  <ChevronRight className="text-ink-soft" />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Nav links + CTA — only visible when expanded */}
+          <AnimatePresence mode="popLayout">
+            {!chip && (
               <motion.div
-                key="full"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.18 }}
-                className="flex w-full items-center justify-between"
+                className="flex flex-1 items-center justify-center gap-2"
               >
-                <Logo />
-
                 <ul className="hidden items-center gap-7 md:flex">
                   {links.map((l) => (
                     <li key={l.href}>
@@ -157,30 +171,29 @@ export function Nav() {
                   ))}
                 </ul>
 
-                <div className="flex items-center gap-2">
-                  <a
-                    href="#contact"
-                    className="hidden rounded-full bg-sage px-5 py-2 text-sm font-medium text-cream transition-all duration-300 hover:bg-ink hover:shadow-lg md:inline-flex"
-                  >
-                    Support Us
-                  </a>
+                <a
+                  href="#contact"
+                  className="ml-auto hidden rounded-full bg-sage px-5 py-2 text-sm font-medium text-cream transition-all duration-300 hover:bg-ink hover:shadow-lg md:inline-flex"
+                >
+                  Support Us
+                </a>
 
-                  {/* Mobile menu toggle */}
-                  <button
-                    type="button"
-                    onClick={() => setOpen((o) => !o)}
-                    aria-label={open ? 'Close menu' : 'Open menu'}
-                    aria-expanded={open}
-                    aria-controls="mobile-menu"
-                    className="-mr-1 flex h-10 w-10 items-center justify-center text-ink md:hidden"
-                  >
-                    <ChevronToggle open={open} />
-                  </button>
-                </div>
+                {/* Mobile menu toggle (expanded state) */}
+                <button
+                  type="button"
+                  onClick={() => setOpen((o) => !o)}
+                  aria-label={open ? 'Close menu' : 'Open menu'}
+                  aria-expanded={open}
+                  aria-controls="mobile-menu"
+                  className="-mr-1 flex h-10 w-10 items-center justify-center text-ink md:hidden"
+                >
+                  <ChevronToggle open={open} />
+                </button>
               </motion.div>
             )}
           </AnimatePresence>
-        </motion.nav>
+        </nav>
+        </div>
       </motion.header>
 
       {/* Full-screen mobile menu */}
