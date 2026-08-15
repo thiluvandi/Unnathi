@@ -123,29 +123,35 @@ export function Training() {
         </motion.div>
 
         {/* left content column */}
-        <div className="absolute inset-y-0 left-0 z-10 flex w-full flex-col justify-center px-7 md:w-[45%] md:px-[5vw]">
-          <p className="eyebrow text-clay-soft">Inside the studio · Training</p>
+        <div className="absolute inset-y-0 left-0 z-10 flex w-full flex-col justify-end px-7 pb-16 md:justify-center md:pb-0 md:w-[45%] md:px-[5vw]">
+          {/* On desktop: standalone eyebrow above the stage area */}
+          <p className="eyebrow hidden w-fit rounded-md bg-cream/10 px-3 py-1 font-bold text-gold drop-shadow-lg backdrop-blur-sm md:block">Inside the studio · Training</p>
 
-          {/* stage area */}
-          <div className="relative mt-8 h-56 md:h-60">
-            {stages.map((s, i) => (
-              <Stage key={s.k} s={s} i={i} last={i === stages.length - 1} vs={videoSeconds} />
-            ))}
-          </div>
+          {/* Mobile: semi-transparent box wrapping all text content */}
+          <div className="rounded-xl bg-black/40 px-4 py-3 backdrop-blur-md md:rounded-none md:bg-transparent md:p-0 md:backdrop-blur-none">
+            <p className="eyebrow text-xs font-bold text-white drop-shadow-lg md:hidden">Inside the studio · Training</p>
 
-          {/* progress ticks */}
-          <div className="mt-8 flex items-center gap-1.5">
-            {stages.map((s, i) => (
-              <Tick key={i} s={s} vs={videoSeconds} />
-            ))}
-          </div>
+            {/* stage area */}
+            <div className="relative mt-2 h-20 md:mt-8 md:h-60">
+              {stages.map((s, i) => (
+                <Stage key={s.k} s={s} i={i} last={i === stages.length - 1} vs={videoSeconds} />
+              ))}
+            </div>
 
-          {/* scrub bar */}
-          <div className="mt-5 h-px w-44 overflow-hidden bg-cream/15">
-            <motion.div
-              style={{ scaleX: barScaleX, transformOrigin: 'left' }}
-              className="h-full w-full bg-clay"
-            />
+            {/* progress ticks */}
+            <div className="mt-3 flex items-center gap-1.5 md:mt-8">
+              {stages.map((s, i) => (
+                <Tick key={i} s={s} vs={videoSeconds} />
+              ))}
+            </div>
+
+            {/* scrub bar */}
+            <div className="mt-3 h-px w-32 overflow-hidden bg-cream/15 md:mt-5 md:w-44">
+              <motion.div
+                style={{ scaleX: barScaleX, transformOrigin: 'left' }}
+                className="h-full w-full bg-clay"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -183,7 +189,7 @@ function Stage({
   if (s.finale) {
     return (
       <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center">
-        <p className="font-serif text-3xl leading-[1.14] font-light md:text-[2.9rem]">
+        <p className="font-serif text-lg leading-tight font-light md:text-[2.9rem] md:leading-[1.14]">
           {s.k} <span className="italic text-gold">{s.accent}</span>
         </p>
       </motion.div>
@@ -192,8 +198,8 @@ function Stage({
 
   return (
     <motion.div style={{ opacity, y }} className="absolute inset-0 flex flex-col justify-center">
-      <h3 className="font-serif text-4xl leading-[1.05] font-light md:text-[3.2rem]">{s.k}</h3>
-      <p className="mt-4 text-base text-cream/75 md:text-lg">{s.t}</p>
+      <h3 className="font-serif text-xl leading-tight font-light md:text-[3.2rem] md:leading-[1.05]">{s.k}</h3>
+      <p className="mt-1 text-sm text-cream/75 md:mt-4 md:text-lg">{s.t}</p>
     </motion.div>
   )
 }
