@@ -163,10 +163,10 @@ export default function About() {
               </h2>
               <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <a
-                  href="mailto:creativesunnathi@gmail.com"
+                  href="mailto:unnathicreatives@gmail.com"
                   className="rounded-full bg-clay px-8 py-4 text-sm font-medium text-cream transition-all hover:-translate-y-0.5 hover:bg-clay-soft hover:shadow-xl"
                 >
-                  creativesunnathi@gmail.com
+                  unnathicreatives@gmail.com
                 </a>
                 <a
                   href="tel:+919448803499"

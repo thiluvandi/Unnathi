@@ -243,8 +243,8 @@ export function Nav() {
                 Support Us
               </a>
               <div className="flex flex-col gap-1 text-sm text-ink-soft">
-                <a href="mailto:creativesunnathi@gmail.com" className="hover:text-ink">
-                  creativesunnathi@gmail.com
+                <a href="mailto:unnathicreatives@gmail.com" className="hover:text-ink">
+                  unnathicreatives@gmail.com
                 </a>
                 <a href="tel:+919448803499" className="hover:text-ink">
                   +91 94488 03499
