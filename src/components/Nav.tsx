@@ -155,9 +155,9 @@ export function Nav() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.18 }}
-                className="flex flex-1 items-center justify-center gap-2"
+                className="relative flex flex-1 items-center gap-2"
               >
-                <ul className="hidden items-center gap-7 md:flex">
+                <ul className="absolute inset-0 hidden items-center justify-center gap-7 md:flex">
                   {links.map((l) => (
                     <li key={l.href}>
                       <a
