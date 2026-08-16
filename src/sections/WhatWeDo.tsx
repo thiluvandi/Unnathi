@@ -11,8 +11,8 @@ const pillars = [
     body: 'Every piece is crafted by our team — natural, eco-friendly and sustainable, carrying the care of the person who made it.',
   },
   {
-    title: 'Shared ownership',
-    body: 'Modelled as a workers’ co-operative — each maker is a part-owner, with a share in the profits and the decisions.',
+    title: 'Intellectual Developmental Disabilities we work with',
+    body: 'Autism Spectrum Disorder, mental retardation, ADHD, Down Syndrome and others.',
   },
 ]
 
