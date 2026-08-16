@@ -22,10 +22,10 @@ export default function App() {
         <main>
           <Hero />
           <Marquee />
-          <WhatWeDo />
+          <Training />
           <Makers />
           <Approach />
-          <Training />
+          <WhatWeDo />
           <Products />
           <Impact />
           <Contact />
