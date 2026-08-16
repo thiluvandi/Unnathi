@@ -4,8 +4,9 @@ import { Link, useLocation } from 'react-router-dom'
 import { Logo, LogoContent } from './Logo'
 
 const links = [
-  { label: 'What We Do', href: '/#work' },
+  { label: 'Training', href: '/#training' },
   { label: 'Our Way', href: '/#approach' },
+  { label: 'What We Do', href: '/#work' },
   { label: 'Products', href: '/#products' },
   { label: 'Impact', href: '/#impact' },
   { label: 'About Us', href: '/about' },
