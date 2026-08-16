@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Reveal } from '../components/Reveal'
+import { CraftMark } from '../components/CraftMark'
 
 export function Contact() {
   return (
@@ -8,6 +9,8 @@ export function Contact() {
       className="relative overflow-hidden bg-ink py-28 text-cream md:py-40"
     >
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(185,138,68,0.28),_transparent_65%)]" />
+      <CraftMark className="pointer-events-none absolute -top-10 -left-10 h-72 w-72 -rotate-12 text-cream opacity-[0.05]" />
+      <CraftMark className="pointer-events-none absolute -bottom-10 -right-10 h-80 w-80 rotate-12 text-gold opacity-[0.04]" />
       <div className="relative mx-auto max-w-4xl px-6 text-center">
         <Reveal>
           <p className="eyebrow text-clay-soft">Contact / Support Us</p>

@@ -1,4 +1,5 @@
 import { Reveal } from '../components/Reveal'
+import { CraftMark } from '../components/CraftMark'
 
 const steps = [
   {
@@ -22,6 +23,8 @@ export function Approach() {
   return (
     <section id="approach" className="relative overflow-hidden bg-sage py-28 text-cream md:py-40">
       <div className="pointer-events-none absolute inset-0 opacity-10 [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:22px_22px]" />
+      <CraftMark className="pointer-events-none absolute -top-12 -right-12 h-72 w-72 rotate-12 text-cream opacity-[0.06]" />
+      <CraftMark className="pointer-events-none absolute -bottom-16 left-10 h-64 w-64 -rotate-6 text-cream opacity-[0.05]" />
       <div className="relative mx-auto max-w-6xl px-6">
         <Reveal>
           <p className="eyebrow text-clay-soft">How we do it</p>

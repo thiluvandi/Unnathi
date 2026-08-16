@@ -2,6 +2,7 @@ import { MotionConfig, motion } from 'framer-motion'
 import { useLenis } from '../lib/useLenis'
 import { Nav } from '../components/Nav'
 import { Footer } from '../sections/Contact'
+import { CraftMark } from '../components/CraftMark'
 
 const pillars = [
   {
@@ -55,8 +56,9 @@ export default function About() {
           {/* Origin story + video */}
           <section
             aria-label="Our story"
-            className="mx-auto max-w-6xl px-6 pb-28 md:pb-40"
+            className="relative overflow-hidden mx-auto max-w-6xl px-6 pb-28 md:pb-40"
           >
+            <CraftMark className="pointer-events-none absolute -top-10 -right-10 h-72 w-72 rotate-12 text-clay opacity-[0.04]" />
             <div className="grid gap-16 md:grid-cols-2 md:gap-24 md:items-start">
               {/* Text */}
               <motion.div
@@ -119,8 +121,10 @@ export default function About() {
           {/* What We Stand For */}
           <section
             aria-label="What we stand for"
-            className="mx-auto max-w-4xl px-6 py-28 md:py-40"
+            className="relative overflow-hidden mx-auto max-w-4xl px-6 py-28 md:py-40"
           >
+            <CraftMark className="pointer-events-none absolute -bottom-10 -right-10 h-64 w-64 -rotate-6 text-sage opacity-[0.04]" />
+            <CraftMark className="pointer-events-none absolute top-10 -left-16 h-56 w-56 rotate-12 text-clay opacity-[0.03]" />
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Reveal } from '../components/Reveal'
+import { CraftMark } from '../components/CraftMark'
 
 const spring = { type: 'spring', stiffness: 260, damping: 26 } as const
 
@@ -27,7 +28,9 @@ export function Makers() {
   }, [expanded])
 
   return (
-    <section id="makers" className="mx-auto max-w-6xl px-6 py-28 md:py-40">
+    <section id="makers" className="relative overflow-hidden mx-auto max-w-6xl px-6 py-28 md:py-40">
+      <CraftMark className="pointer-events-none absolute -top-10 right-0 h-64 w-64 -rotate-12 text-clay opacity-[0.04]" />
+      <CraftMark className="pointer-events-none absolute bottom-0 -left-10 h-56 w-56 rotate-6 text-gold opacity-[0.04]" />
       <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
         <Reveal>
           <div className="overflow-hidden rounded-3xl shadow-[0_30px_60px_-30px_rgba(38,40,46,0.45)]">

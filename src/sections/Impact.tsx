@@ -1,5 +1,6 @@
 import { Reveal } from '../components/Reveal'
 import { Counter } from '../components/Counter'
+import { CraftMark } from '../components/CraftMark'
 
 // NOTE: placeholder figures — replace with Unnathi's real numbers.
 const stats = [
@@ -11,7 +12,9 @@ const stats = [
 
 export function Impact() {
   return (
-    <section id="impact" className="mx-auto max-w-6xl px-6 py-28 md:py-40">
+    <section id="impact" className="relative overflow-hidden mx-auto max-w-6xl px-6 py-28 md:py-40">
+      <CraftMark className="pointer-events-none absolute top-0 -right-10 h-72 w-72 rotate-45 text-gold opacity-[0.05]" />
+      <CraftMark className="pointer-events-none absolute -bottom-10 left-0 h-64 w-64 -rotate-12 text-clay opacity-[0.04]" />
       <div className="max-w-2xl">
         <Reveal>
           <p className="eyebrow text-clay">Our impact</p>

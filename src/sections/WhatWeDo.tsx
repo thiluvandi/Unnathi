@@ -18,7 +18,9 @@ const pillars = [
 
 export function WhatWeDo() {
   return (
-    <section id="work" className="relative mx-auto max-w-6xl px-6 py-28 md:py-40">
+    <section id="work" className="relative overflow-hidden mx-auto max-w-6xl px-6 py-28 md:py-40">
+      <CraftMark className="pointer-events-none absolute -top-16 -right-16 h-72 w-72 rotate-12 text-clay opacity-[0.04]" />
+      <CraftMark className="pointer-events-none absolute -bottom-20 -left-20 h-80 w-80 -rotate-6 text-sage opacity-[0.04]" />
       <div className="grid gap-16 md:grid-cols-[0.9fr_1.1fr] md:gap-24">
         <div>
           <Reveal>
