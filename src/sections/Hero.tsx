@@ -44,9 +44,9 @@ export function Hero() {
         </motion.p>
 
         <h1 className="font-serif text-[11vw] leading-[1.06] font-light tracking-[-0.01em] text-ink sm:text-7xl md:text-8xl">
-          <RevealWords text="Made by hand," delay={0.5} />
+          <RevealWords text="Handmade with a purpose," delay={0.5} />
           <span className="mt-2 block italic text-sage">
-            <RevealWords text="and fairly paid." delay={0.75} />
+            <RevealWords text="Skills that speak." delay={0.75} />
           </span>
         </h1>
 
@@ -56,9 +56,7 @@ export function Hero() {
           transition={{ delay: 1.3, duration: 1 }}
           className="mt-11 max-w-lg text-base leading-8 text-ink-soft md:text-lg"
         >
-          A workers' co-operative where adults on the autism spectrum craft
-          beautiful, eco-friendly products — and share in the pride, the profit,
-          and the decisions.
+          Vocational skill training center with the sole purpose of empowering individuals with intellectual developmental disabilities.
         </motion.p>
 
         <motion.div
