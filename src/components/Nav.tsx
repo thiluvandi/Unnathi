@@ -108,11 +108,7 @@ export function Nav() {
           onMouseLeave={() => setHovered(false)}
           className={`flex items-center overflow-hidden rounded-full border backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 ease-out w-full px-4 py-2.5 ${
             chip ? 'max-w-fit' : 'max-w-full'
-          } ${
-            scrolled || open
-              ? 'border-ink/10 bg-cream/38 shadow-[inset_0_1px_0_rgba(255,255,255,0.6),_0_10px_34px_-14px_rgba(32,28,22,0.3)]'
-              : 'border-ink/10 bg-cream/38 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),_0_8px_26px_-16px_rgba(32,28,22,0.3)]'
-          }`}
+          } border-clay/40 bg-clay shadow-[inset_0_1px_0_rgba(255,255,255,0.12),_0_10px_34px_-14px_rgba(32,28,22,0.4)]`}
         >
           {/* Logo — always rendered, never swapped, so it stays in place during collapse/expand */}
           <div className="flex shrink-0 items-center gap-1.5">
@@ -152,7 +148,7 @@ export function Nav() {
                   transition={{ duration: 0.18 }}
                   className="hidden md:inline-flex"
                 >
-                  <ChevronRight className="text-ink-soft" />
+                  <ChevronRight className="text-cream/60" />
                 </motion.span>
               )}
             </AnimatePresence>
@@ -169,17 +165,22 @@ export function Nav() {
                 className="relative flex flex-1 items-center gap-2"
               >
                 <ul className="absolute inset-0 hidden items-center justify-center gap-7 md:flex">
-                  {links.map((l) => (
-                    <li key={l.href}>
-                      <NavLink
-                        href={l.href}
-                        className="group relative text-sm font-medium text-ink-soft transition-colors hover:text-ink"
-                      >
-                        {l.label}
-                        <span className="absolute -bottom-1 left-0 h-px w-0 bg-clay transition-all duration-300 group-hover:w-full" />
-                      </NavLink>
-                    </li>
-                  ))}
+                  {links.map((l) => {
+                    const isActive = l.href.startsWith('/')  && !l.href.startsWith('/#')
+                      ? location.pathname === l.href
+                      : location.hash === l.href.replace('/', '') || (l.href === '/#training' && location.hash === '')
+                    return (
+                      <li key={l.href}>
+                        <NavLink
+                          href={l.href}
+                          className="group relative text-sm font-medium text-cream/80 transition-colors hover:text-cream"
+                        >
+                          {l.label}
+                          <span className={`absolute -bottom-1 left-0 h-px bg-cream transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                        </NavLink>
+                      </li>
+                    )
+                  })}
                 </ul>
 
                 {/* Mobile menu toggle (expanded state) */}
