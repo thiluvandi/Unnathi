@@ -66,10 +66,38 @@ export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
   const [hovered, setHovered] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
   const menuRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const { scrollY } = useScroll()
   useMotionValueEvent(scrollY, 'change', (v) => setScrolled(v > 40))
+
+  // Track which section is in view via IntersectionObserver — only on home page
+  useEffect(() => {
+    if (location.pathname !== '/') { setActiveSection(''); return }
+    const sectionIds = links
+      .filter(l => l.href.startsWith('/#'))
+      .map(l => l.href.replace('/#', ''))
+    const observers: IntersectionObserver[] = []
+    const visible = new Set<string>()
+    sectionIds.forEach(id => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) visible.add(id)
+          else visible.delete(id)
+          // Pick the first matching link order as active
+          const active = sectionIds.find(s => visible.has(s)) ?? ''
+          setActiveSection(active)
+        },
+        { threshold: 0.3 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+    return () => observers.forEach(o => o.disconnect())
+  }, [location.pathname])
 
   // Never collapse on the /about page — it doesn't have a long scroll
   const chip = scrolled && !hovered && location.pathname === '/'
@@ -166,9 +194,9 @@ export function Nav() {
               >
                 <ul className="absolute inset-0 hidden items-center justify-center gap-7 md:flex">
                   {links.map((l) => {
-                    const isActive = l.href.startsWith('/')  && !l.href.startsWith('/#')
+                    const isActive = l.href.startsWith('/') && !l.href.startsWith('/#')
                       ? location.pathname === l.href
-                      : location.hash === l.href.replace('/', '') || (l.href === '/#training' && location.hash === '')
+                      : activeSection === l.href.replace('/#', '')
                     return (
                       <li key={l.href}>
                         <NavLink
