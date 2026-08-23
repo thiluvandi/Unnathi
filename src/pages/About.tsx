@@ -8,15 +8,15 @@ import { CraftMark } from '../components/CraftMark'
 const pillars = [
   {
     title: 'Empowerment Over Charity',
-    body: 'Sustainable income and skill development that build long-term independence.',
+    body: 'Sustainable income and skill development that leads to employment and sustainable income.',
   },
   {
     title: 'Inclusive Innovation',
-    body: 'Talent-focused opportunities tailored for individuals with disabilities and caregivers.',
+    body: 'Market driven products that are made by our special trainees and their caregivers.',
   },
   {
     title: 'Shared Ownership',
-    body: 'A future-focused model ensuring our team members are true partners in our success.',
+    body: 'A future-focused model ensuring our team members are true partners in our growth and success.',
   },
 ]
 
@@ -72,26 +72,26 @@ export default function About() {
                 <p>
                   Founded in 2022 by{' '}
                   <span className="font-medium text-ink">Usha Reddy</span>, Unnathi Creatives
-                  is a social enterprise built on a powerful principle: sustainable
-                  empowerment through employment, not charity.
+                  is a social enterprise built with a sole purpose of enabling sustainable
+                  empowerment through employment.
                 </p>
                 <p>
                   What began during the third wave of the pandemic in a modest
                   garage — generously offered by the family of our very first trainee,
-                  Shanthanu — has grown into a vibrant, 10-member team operating out of
-                  a dedicated workshop.
+                  Shanthanu — has grown into a vibrant, 15-member team operating out of
+                  a sheltered workshop in Bangalore.
                 </p>
                 <p>
                   We create meaningful livelihood opportunities for persons with
-                  disabilities, mothers of neurodivergent children, and local artisans.
+                  disabilities, mothers of neurodivergent children, and local women artisans.
                   Every item crafted at Unnathi represents financial independence,
                   dignity, and specialized skill.
                 </p>
                 <p>
                   Looking ahead, we are building toward a worker-owned cooperative
                   model. Our vision is an inclusive enterprise where every team member
-                  holds ownership, shares in the profits, and actively shapes the
-                  direction of the organization.
+                  holds ownership, shares in the profits, and actively contributes towards the
+                  growth of the organization.
                 </p>
               </motion.div>
 

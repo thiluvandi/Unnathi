@@ -40,13 +40,13 @@ export function Hero() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="eyebrow mt-8 mb-9 text-clay"
         >
-          Empowering Adults with Autism
+
         </motion.p>
 
         <h1 className="font-serif text-[11vw] leading-[1.06] font-light tracking-[-0.01em] text-ink sm:text-7xl md:text-8xl">
-          <RevealWords text="Handmade with a purpose," delay={0.5} />
+          <RevealWords text="Skills that speak" delay={0.5} />
           <span className="mt-2 block italic text-sage">
-            <RevealWords text="Skills that speak." delay={0.75} />
+            <RevealWords text="" delay={0.75} />
           </span>
         </h1>
 
@@ -56,7 +56,7 @@ export function Hero() {
           transition={{ delay: 1.3, duration: 1 }}
           className="mt-11 max-w-lg text-base leading-8 text-ink-soft md:text-lg"
         >
-          Vocational skill training center with the sole purpose of empowering individuals with intellectual developmental disabilities.
+          Unnathi Creatives is a vocational skill training center with the sole purpose of empowering individuals with intellectual developmental disabilities.
         </motion.p>
 
         <motion.div
@@ -69,7 +69,7 @@ export function Hero() {
             href="#products"
             className="rounded-full bg-clay px-7 py-3.5 text-sm font-medium text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:shadow-xl"
           >
-            Explore our craft
+            Explore our products
           </a>
           <a
             href="#work"

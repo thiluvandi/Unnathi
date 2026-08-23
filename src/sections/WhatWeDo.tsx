@@ -8,11 +8,11 @@ const pillars = [
   },
   {
     title: 'Made by hand',
-    body: 'Every piece is crafted by our team — natural, eco-friendly and sustainable, carrying the care of the person who made it.',
+    body: 'We believe in sustainability and this principle makes sure that every product is handmade with eco-friendly and natural materials. ',
   },
   {
-    title: 'Intellectual Developmental Disabilities we work with',
-    body: 'Autism Spectrum Disorder, mental retardation, ADHD, Down Syndrome and others.',
+    title: 'Made with care, owned with pride.',
+    body: 'by individuals with Autism Spectrum Disorder, mental retardation, ADHD, Down Syndrome and others.',
   },
 ]
 
@@ -28,16 +28,14 @@ export function WhatWeDo() {
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="mt-5 font-serif text-4xl leading-[1.05] font-light text-ink md:text-6xl">
-              Ability, not
+              Handmade with a
               <br />
-              <span className="italic text-sage">disability.</span>
+              <span className="italic text-sage">purpose.</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="mt-7 max-w-md text-ink-soft md:text-lg">
-              At Unnathi Creatives, talent isn’t defined by a diagnosis. We
-              provide training, tools and a home for adults on the spectrum to
-              turn skill into a sustaining craft.
+              At Unnathi Creatives, we provide a supportive environment fostering empowerment for individuals with autism and IDDs, turning their skills into sustainable employment. All of this enabled by a structured training program that is paramount.
             </p>
           </Reveal>
         </div>
