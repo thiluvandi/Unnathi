@@ -1,4 +1,5 @@
 import { MotionConfig, motion } from 'framer-motion'
+import { useEffect } from 'react'
 import { useLenis } from '../lib/useLenis'
 import { Nav } from '../components/Nav'
 import { Footer } from '../sections/Contact'
@@ -21,6 +22,7 @@ const pillars = [
 
 export default function About() {
   useLenis()
+  useEffect(() => { window.scrollTo(0, 0) }, [])
 
   return (
     <MotionConfig reducedMotion="user">
