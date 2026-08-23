@@ -160,7 +160,7 @@ export function Nav() {
                     exit={{ opacity: 0, width: 0 }}
                     transition={{ duration: 0.18 }}
                   >
-                    <ChevronToggle open={open} className="text-ink-soft" />
+                    <ChevronToggle open={open} className="text-white" />
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -176,7 +176,7 @@ export function Nav() {
                   transition={{ duration: 0.18 }}
                   className="hidden md:inline-flex"
                 >
-                  <ChevronRight className="text-cream/60" />
+                  <ChevronRight className="text-white" />
                 </motion.span>
               )}
             </AnimatePresence>
