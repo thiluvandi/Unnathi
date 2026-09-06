@@ -134,9 +134,9 @@ export function Nav() {
             if (window.matchMedia('(hover: hover)').matches) setHovered(true)
           }}
           onMouseLeave={() => setHovered(false)}
-          className={`flex items-center overflow-hidden rounded-full border backdrop-blur-2xl backdrop-saturate-150 transition-all duration-500 ease-out w-full px-4 py-2.5 ${
+          className={`relative flex items-center overflow-hidden rounded-full border backdrop-blur-3xl backdrop-saturate-200 transition-all duration-500 ease-out w-full px-4 py-2.5 ${
             chip ? 'max-w-fit' : 'max-w-full'
-          } border-clay/40 bg-clay shadow-[inset_0_1px_0_rgba(255,255,255,0.12),_0_10px_34px_-14px_rgba(32,28,22,0.4)]`}
+          } border-white/30 bg-white/10 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.75),inset_0_-1px_0_rgba(255,255,255,0.15),0_8px_32px_-8px_rgba(32,28,22,0.18),0_2px_8px_-2px_rgba(32,28,22,0.08)]`}
         >
           {/* Logo — always rendered, never swapped, so it stays in place during collapse/expand */}
           <div className="flex shrink-0 items-center gap-1.5">
@@ -160,7 +160,7 @@ export function Nav() {
                     exit={{ opacity: 0, width: 0 }}
                     transition={{ duration: 0.18 }}
                   >
-                    <ChevronToggle open={open} className="text-white" />
+                    <ChevronToggle open={open} className="text-ink-soft" />
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -176,7 +176,7 @@ export function Nav() {
                   transition={{ duration: 0.18 }}
                   className="hidden md:inline-flex"
                 >
-                  <ChevronRight className="text-white" />
+                  <ChevronRight className="text-ink-soft" />
                 </motion.span>
               )}
             </AnimatePresence>
@@ -201,10 +201,10 @@ export function Nav() {
                       <li key={l.href}>
                         <NavLink
                           href={l.href}
-                          className="group relative text-sm font-medium text-cream/80 transition-colors hover:text-cream"
+                          className="group relative text-sm font-medium text-ink/70 transition-colors hover:text-ink"
                         >
                           {l.label}
-                          <span className={`absolute -bottom-1 left-0 h-px bg-cream transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                          <span className={`absolute -bottom-1 left-0 h-px bg-clay transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
                         </NavLink>
                       </li>
                     )

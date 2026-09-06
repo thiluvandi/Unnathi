@@ -35,7 +35,7 @@ export function LogoContent({ className = '' }: { className?: string }) {
         <img
           src="/logo.png"
           alt="Unnathi Creatives"
-          className="h-[4.5rem] w-auto brightness-0 invert"
+          className="h-[4.5rem] w-auto"
           onError={() => setUseImg(false)}
         />
       ) : (
