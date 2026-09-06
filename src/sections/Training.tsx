@@ -53,52 +53,24 @@ export function Training() {
     if (!v) return
 
     const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent)
-
+    // iOS: seek at most once every 3 frames; desktop: every frame.
+    const frameSkip = isIOS ? 3 : 1
+    const threshold = isIOS ? 0.05 : 0.015
     let raf = 0
-    let lastSeeked = -1
-    let stallTimer = 0
-
-    const seek = (t: number) => {
-      if (!v.duration || Number.isNaN(v.duration) || v.readyState < 2) return
-      const target = Math.min(t, v.duration - 0.05)
-      if (Math.abs(v.currentTime - target) < 0.015) return
-      clearTimeout(stallTimer)
-      v.currentTime = target
-      // If seeked never fires within 600 ms (stall), force a retry
-      stallTimer = window.setTimeout(() => {
-        if (Math.abs(v.currentTime - target) > 0.05) v.currentTime = target
-      }, 600)
-    }
-
-    const onSeeked = () => {
-      clearTimeout(stallTimer)
-      const target = Math.min(targetTime.current, (v.duration || 0) - 0.05)
-      if (Math.abs(v.currentTime - target) > 0.05) seek(target)
-    }
-    v.addEventListener('seeked', onSeeked)
-
-    // rAF poll: on iOS check every few frames to trigger new seeks;
-    // on desktop run every frame for smooth scrubbing.
     let frame = 0
+
     const tick = () => {
       frame++
-      const skipFrame = isIOS ? frame % 3 !== 0 : false
-      if (!skipFrame && !v.seeking) {
-        const target = targetTime.current
-        if (Math.abs(target - lastSeeked) > (isIOS ? 0.05 : 0.015)) {
-          lastSeeked = target
-          seek(target)
+      if (frame % frameSkip === 0 && !v.seeking && v.readyState >= 2) {
+        const target = Math.min(targetTime.current, v.duration - 0.05)
+        if (!Number.isNaN(target) && Math.abs(v.currentTime - target) > threshold) {
+          v.currentTime = target
         }
       }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-
-    return () => {
-      cancelAnimationFrame(raf)
-      clearTimeout(stallTimer)
-      v.removeEventListener('seeked', onSeeked)
-    }
+    return () => cancelAnimationFrame(raf)
   }, [])
 
   const barScaleX = useSpring(
