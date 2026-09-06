@@ -77,7 +77,7 @@ const blocksDesktop: Block[] = [
   // top of arc — directly above heading
   { kind: 'paisley', shape: 'box',  size: [1.5, 1.5, 0.42],  pos: [0.1,  0.9, 0],    tilt: [-0.18,  0.32, -0.05], float: 1.2, scale: 1    },
   // upper-left
-  { kind: 'leaf',    shape: 'box',  size: [0.9, 1.4, 0.38],  pos: [-1.8, 0.1, -0.4], tilt: [ 0.14,  0.42,  0.10], float: 2.0, scale: 0.8  },
+  { kind: 'leaf',    shape: 'box',  size: [0.9, 1.4, 0.38],  pos: [-1.8, 0.7, -0.4], tilt: [ 0.14,  0.42,  0.10], float: 2.0, scale: 0.8  },
   // upper-right
   { kind: 'mandala', shape: 'hex',  size: [1.25, 1.25, 0.5], pos: [ 2.1, 0.1, -0.6], tilt: [ 0.16, -0.40, -0.08], float: 1.8, scale: 0.85 },
   // right flank — level with text
