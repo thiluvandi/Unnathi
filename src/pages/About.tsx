@@ -4,6 +4,7 @@ import { useLenis } from '../lib/useLenis'
 import { Nav } from '../components/Nav'
 import { Footer } from '../sections/Contact'
 import { CraftMark } from '../components/CraftMark'
+import { WhatsAppButton } from '../components/WhatsAppButton'
 
 const pillars = [
   {
@@ -203,6 +204,7 @@ export default function About() {
         </main>
 
         <Footer />
+        <WhatsAppButton />
       </div>
     </MotionConfig>
   )

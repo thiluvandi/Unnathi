@@ -10,6 +10,7 @@ import { Training } from './sections/Training'
 import { Products } from './sections/Products'
 import { Impact } from './sections/Impact'
 import { Contact, Footer } from './sections/Contact'
+import { WhatsAppButton } from './components/WhatsAppButton'
 
 export default function App() {
   useLenis()
@@ -31,6 +32,7 @@ export default function App() {
           <Contact />
         </main>
         <Footer />
+        <WhatsAppButton />
       </div>
     </MotionConfig>
   )

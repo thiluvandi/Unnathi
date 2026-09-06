@@ -59,7 +59,9 @@ export function Products() {
           </div>
           <Reveal delay={0.1}>
             <a
-              href="#contact"
+              href="https://wa.me/919448803499?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20placing%20an%20order"
+              target="_blank"
+              rel="noopener noreferrer"
               className="rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink transition-all hover:border-ink hover:-translate-y-0.5"
             >
               Enquire / order →

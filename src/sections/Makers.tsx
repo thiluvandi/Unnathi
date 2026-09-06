@@ -64,7 +64,7 @@ export function Makers() {
                 layoutId="team-photo"
                 transition={spring}
                 onClick={() => setExpanded(true)}
-                src="/media/team.jpg"
+                src="/media/group-photo.png"
                 alt="The Unnathi Creatives team in the studio"
                 className="h-16 w-24 cursor-zoom-in rounded-xl object-cover"
               />
@@ -94,7 +94,7 @@ export function Makers() {
               layoutId="team-photo"
               transition={spring}
               onClick={(e) => e.stopPropagation()}
-              src="/media/team.jpg"
+              src="/media/group-photo.png"
               alt="The Unnathi Creatives team in the studio"
               className="max-h-[82vh] max-w-[92vw] cursor-default rounded-2xl object-cover shadow-2xl"
             />
