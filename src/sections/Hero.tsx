@@ -26,9 +26,9 @@ export function Hero() {
         <Scene3D />
       </motion.div>
 
-      {/* legibility veil — creams the central content column so the eyebrow and
-          headline read over any block, while leaving the side blocks visible */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[16%] z-[5] bg-[radial-gradient(ellipse_72%_58%_at_50%_46%,_rgba(236,231,219,0.98)_40%,_rgba(236,231,219,0)_74%)]" />
+      {/* legibility veil — tight ellipse centred on the text block at the bottom,
+          small enough to leave the surrounding arc of blocks fully visible */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[16%] z-[5] bg-[radial-gradient(ellipse_52%_36%_at_50%_82%,_rgba(236,231,219,0.96)_30%,_rgba(236,231,219,0)_70%)]" />
 
       <motion.div
         style={{ y, opacity }}
