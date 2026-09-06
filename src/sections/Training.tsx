@@ -48,55 +48,57 @@ export function Training() {
     targetTime.current = s
   })
 
-  // iOS Safari throttles rapid currentTime assignments — use seeked-chaining
-  // so only one seek is in flight at a time, then immediately re-seek if the
-  // target moved while we were waiting. Falls back to rAF on desktop.
   useEffect(() => {
     const v = video.current
     if (!v) return
 
     const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent)
 
-    if (isIOS) {
-      const onSeeked = () => {
-        if (!v.duration || Number.isNaN(v.duration)) return
-        const target = Math.min(targetTime.current, v.duration - 0.05)
+    let raf = 0
+    let lastSeeked = -1
+    let stallTimer = 0
+
+    const seek = (t: number) => {
+      if (!v.duration || Number.isNaN(v.duration) || v.readyState < 2) return
+      const target = Math.min(t, v.duration - 0.05)
+      if (Math.abs(v.currentTime - target) < 0.015) return
+      clearTimeout(stallTimer)
+      v.currentTime = target
+      // If seeked never fires within 600 ms (stall), force a retry
+      stallTimer = window.setTimeout(() => {
         if (Math.abs(v.currentTime - target) > 0.05) v.currentTime = target
-      }
-      v.addEventListener('seeked', onSeeked)
-
-      // Kick off initial seek and poll lightly so new scroll positions trigger a seek
-      let raf = 0
-      let last = -1
-      const poll = () => {
-        if (!v.seeking) {
-          const target = Math.min(targetTime.current, (v.duration || 0) - 0.05)
-          if (Math.abs(target - last) > 0.05) {
-            last = target
-            v.currentTime = target
-          }
-        }
-        raf = requestAnimationFrame(poll)
-      }
-      raf = requestAnimationFrame(poll)
-
-      return () => {
-        cancelAnimationFrame(raf)
-        v.removeEventListener('seeked', onSeeked)
-      }
+      }, 600)
     }
 
-    // Desktop: rAF loop, one seek per frame when not already seeking
-    let raf = 0
+    const onSeeked = () => {
+      clearTimeout(stallTimer)
+      const target = Math.min(targetTime.current, (v.duration || 0) - 0.05)
+      if (Math.abs(v.currentTime - target) > 0.05) seek(target)
+    }
+    v.addEventListener('seeked', onSeeked)
+
+    // rAF poll: on iOS check every few frames to trigger new seeks;
+    // on desktop run every frame for smooth scrubbing.
+    let frame = 0
     const tick = () => {
-      if (v.duration && !Number.isNaN(v.duration) && !v.seeking) {
-        const target = Math.min(targetTime.current, v.duration - 0.05)
-        if (Math.abs(v.currentTime - target) > 0.015) v.currentTime = target
+      frame++
+      const skipFrame = isIOS ? frame % 3 !== 0 : false
+      if (!skipFrame && !v.seeking) {
+        const target = targetTime.current
+        if (Math.abs(target - lastSeeked) > (isIOS ? 0.05 : 0.015)) {
+          lastSeeked = target
+          seek(target)
+        }
       }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      clearTimeout(stallTimer)
+      v.removeEventListener('seeked', onSeeked)
+    }
   }, [])
 
   const barScaleX = useSpring(
@@ -104,17 +106,13 @@ export function Training() {
     { stiffness: 120, damping: 30 },
   )
 
-  const onLoaded = () => {
+  const onCanPlay = () => {
     const v = video.current
-    if (!v) return
-    const activate = v.play()
-    if (activate !== undefined) {
-      activate.then(() => {
-        v.pause()
-        v.currentTime = 0.001
-      }).catch(() => {
-        v.currentTime = 0.001
-      })
+    if (!v || v.readyState < 2) return
+    // Activate the decoder so currentTime seeks work on iOS Safari
+    const p = v.play()
+    if (p !== undefined) {
+      p.then(() => { v.pause(); v.currentTime = 0.001 }).catch(() => { v.currentTime = 0.001 })
     } else {
       v.currentTime = 0.001
     }
@@ -148,7 +146,7 @@ export function Training() {
             muted
             playsInline
             preload="auto"
-            onLoadedMetadata={onLoaded}
+            onCanPlay={onCanPlay}
             className="h-full w-full object-cover"
           />
           {/* legibility scrim — full on mobile (text overlays), light left-edge on desktop */}
