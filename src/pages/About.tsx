@@ -50,8 +50,8 @@ export default function About() {
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
               className="mt-6 font-serif text-5xl leading-[1.05] font-light md:text-7xl"
             >
-              Built on empowerment,{' '}
-              <span className="italic text-clay">not charity.</span>
+              Built on empowerment.{' '}
+              <span className="italic text-clay"></span>
             </motion.h1>
           </section>
 
@@ -72,7 +72,7 @@ export default function About() {
                 <p>
                   Founded in 2022 by{' '}
                   <span className="font-medium text-ink">Usha Reddy</span>, Unnathi Creatives
-                  is a social enterprise built with a sole purpose of enabling sustainable
+                  is a social enterprise built on a powerful principle of enabling sustainable
                   empowerment through employment.
                 </p>
                 <p>
