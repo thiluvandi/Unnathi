@@ -92,6 +92,9 @@ export default function About() {
                   model, our vision is an inclusive enterprise built on team work and every team member actively contributes towards the
                   growth of the organization.
                 </p>
+                <p>
+                  Ever thankful to DNA, NPT and Tarangani for enabling us with the knowledge and resources to lay the foundations of this organisation.
+                </p>
               </motion.div>
 
               {/* Video */}
