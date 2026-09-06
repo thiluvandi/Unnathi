@@ -5,7 +5,7 @@ const products = [
   {
     name: 'Hand block-printed apparel',
     tag: 'Textile',
-    desc: 'Kurtas, scarves and fabric printed by hand with natural indigo.',
+    desc: 'Sarees, bedsheets, kidswear and T-Shirts printed by hand with natural colours.',
     img: '/media/apparel.jpg',
   },
   {
