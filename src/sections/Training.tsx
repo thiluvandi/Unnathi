@@ -10,16 +10,16 @@ import {
 
 // Stages mapped to the video timeline (seconds). The last one is the closing line.
 const stages = [
-  { start: 0.0, end: 0.6, k: 'Preparing the Tools', t: 'The blocks that begin the journey.' },
-  { start: 0.6, end: 1.3, k: 'Learning the Technique', t: 'Ink. Pressure. Precision.' },
-  { start: 1.3, end: 1.9, k: 'Guided Practice', t: 'Learning by doing.' },
+  { start: 0.0, end: 0.6, k: 'Handmade blocks', t: 'That begin the journey.' },
+  { start: 0.6, end: 1.3, k: 'Learning the art of printing', t: 'Ink. Pressure. Precision. Repeat.' },
+  { start: 1.3, end: 1.9, k: 'Guided Practice', t: 'Learning by doing to print independently.' },
   { start: 1.9, end: 2.6, k: 'Finding Confidence', t: 'The moment it comes together.' },
   { start: 2.6, end: 3.5, k: 'Learning Together', t: 'Skills grow through collaboration.' },
-  { start: 3.5, end: 4.2, k: 'Celebrating Progress', t: 'Every achievement matters.' },
+  { start: 3.5, end: 4.2, k: 'Celebrating Progress', t: 'Even a small achievement matters.' },
   {
     start: 4.2,
     end: 5.0,
-    k: 'From learning a craft to',
+    k: 'From learning to',
     accent: 'creating an opportunity.',
     finale: true,
   },
