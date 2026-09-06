@@ -142,7 +142,7 @@ export function Training() {
         >
           <video
             ref={video}
-            src="/training.mp4?v=faststart"
+            src="https://res.cloudinary.com/ieo1jvuh/video/upload/q_auto/v1788712454/training.mp4"
             muted
             playsInline
             preload="auto"
