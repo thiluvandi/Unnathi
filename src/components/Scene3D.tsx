@@ -89,7 +89,7 @@ const blocksDesktop: Block[] = [
 // Fewer blocks, composed for a narrow portrait frame.
 // A single clean signature stamp reads best on a narrow frame.
 const blocksMobile: Block[] = [
-  { kind: 'paisley', shape: 'box', size: [1.5, 1.5, 0.42], pos: [0, 1.9, 0], tilt: [-0.16, 0.3, -0.04], float: 1.2, scale: 0.62 },
+  { kind: 'paisley', shape: 'box', size: [1.5, 1.5, 0.42], pos: [0, -0.7, 0], tilt: [-0.16, 0.3, -0.04], float: 1.2, scale: 0.62 },
 ]
 
 function Blocks({
