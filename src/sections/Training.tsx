@@ -142,7 +142,7 @@ export function Training() {
         >
           <video
             ref={video}
-            src="/training.mp4?v=720ai"
+            src="/training.mp4?v=faststart"
             muted
             playsInline
             preload="auto"
