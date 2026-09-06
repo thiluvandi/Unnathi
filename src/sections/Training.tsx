@@ -33,6 +33,8 @@ export function Training() {
   const section = useRef<HTMLElement>(null)
   const video = useRef<HTMLVideoElement>(null)
 
+  const activated = useRef(false)
+
   const { scrollYProgress } = useScroll({
     target: section,
     offset: ['start start', 'end end'],
@@ -53,42 +55,46 @@ export function Training() {
     if (!v) return
 
     const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent)
-    // iOS: seek at most once every 3 frames; desktop: every frame.
-    const frameSkip = isIOS ? 3 : 1
-    const threshold = isIOS ? 0.05 : 0.015
+
+    // Activate the decoder exactly once. iOS Safari requires a play/pause cycle
+    // before currentTime seeks respond; loadedmetadata fires once per load.
+    const activate = () => {
+      if (activated.current) return
+      activated.current = true
+      const p = v.play()
+      if (p) p.then(() => v.pause()).catch(() => {})
+    }
+    v.addEventListener('loadedmetadata', activate)
+
+    // Single rAF loop — throttle on iOS to ease decoder pressure.
+    const frameSkip = isIOS ? 4 : 1
+    const threshold = isIOS ? 0.08 : 0.02
     let raf = 0
     let frame = 0
 
     const tick = () => {
       frame++
-      if (frame % frameSkip === 0 && !v.seeking && v.readyState >= 2) {
-        const target = Math.min(targetTime.current, v.duration - 0.05)
-        if (!Number.isNaN(target) && Math.abs(v.currentTime - target) > threshold) {
-          v.currentTime = target
+      if (frame % frameSkip === 0 && !v.seeking) {
+        const dur = v.duration
+        if (dur && !Number.isNaN(dur)) {
+          const target = Math.min(Math.max(targetTime.current, 0), dur - 0.05)
+          if (Math.abs(v.currentTime - target) > threshold) v.currentTime = target
         }
       }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+
+    return () => {
+      cancelAnimationFrame(raf)
+      v.removeEventListener('loadedmetadata', activate)
+    }
   }, [])
 
   const barScaleX = useSpring(
     useTransform(scrollYProgress, [SCRUB_START, SCRUB_END], [0, 1]),
     { stiffness: 120, damping: 30 },
   )
-
-  const onCanPlay = () => {
-    const v = video.current
-    if (!v || v.readyState < 2) return
-    // Activate the decoder so currentTime seeks work on iOS Safari
-    const p = v.play()
-    if (p !== undefined) {
-      p.then(() => { v.pause(); v.currentTime = 0.001 }).catch(() => { v.currentTime = 0.001 })
-    } else {
-      v.currentTime = 0.001
-    }
-  }
 
   return (
     <section ref={section} id="training" className="relative h-[720vh] bg-[#1f2735] text-cream">
@@ -118,7 +124,6 @@ export function Training() {
             muted
             playsInline
             preload="auto"
-            onCanPlay={onCanPlay}
             className="h-full w-full object-cover"
           />
           {/* legibility scrim — full on mobile (text overlays), light left-edge on desktop */}
