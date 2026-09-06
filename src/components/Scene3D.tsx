@@ -71,13 +71,19 @@ function Stamp({
   )
 }
 
-// Spread wide for desktop.
+// Arc arrangement: blocks form a semicircle around the heading at the bottom of the hero.
+// 3D y≈-1 corresponds to viewport ~68% from top (where the text lives).
 const blocksDesktop: Block[] = [
-  { kind: 'paisley', shape: 'box', size: [1.5, 1.5, 0.42], pos: [0.1, 2.05, 0], tilt: [-0.18, 0.32, -0.05], float: 1.2, scale: 1 },
-  { kind: 'leaf', shape: 'box', size: [0.9, 1.4, 0.38], pos: [1.6, 2.95, -0.4], tilt: [0.14, 0.42, 0.1], float: 2.0, scale: 0.8 },
-  { kind: 'mandala', shape: 'hex', size: [1.25, 1.25, 0.5], pos: [2.75, 2.05, -0.6], tilt: [0.16, -0.4, -0.08], float: 1.8, scale: 0.85 },
-  { kind: 'floral', shape: 'hex', size: [1.15, 1.15, 0.48], pos: [2.5, 0.7, 0.2], tilt: [-0.12, -0.28, 0.06], float: 1.4, scale: 0.9 },
-  { kind: 'border', shape: 'box', size: [2.1, 0.72, 0.4], pos: [-2.5, 1.2, -0.4], tilt: [0.1, -0.35, 0.12], float: 1.5, scale: 0.9 },
+  // top of arc — directly above heading
+  { kind: 'paisley', shape: 'box',  size: [1.5, 1.5, 0.42],  pos: [0.1,  0.9, 0],    tilt: [-0.18,  0.32, -0.05], float: 1.2, scale: 1    },
+  // upper-left
+  { kind: 'leaf',    shape: 'box',  size: [0.9, 1.4, 0.38],  pos: [-1.8, 0.1, -0.4], tilt: [ 0.14,  0.42,  0.10], float: 2.0, scale: 0.8  },
+  // upper-right
+  { kind: 'mandala', shape: 'hex',  size: [1.25, 1.25, 0.5], pos: [ 2.1, 0.1, -0.6], tilt: [ 0.16, -0.40, -0.08], float: 1.8, scale: 0.85 },
+  // right flank — level with text
+  { kind: 'floral',  shape: 'hex',  size: [1.15, 1.15, 0.48],pos: [ 3.3, -0.9, 0.2], tilt: [-0.12, -0.28,  0.06], float: 1.4, scale: 0.9  },
+  // left flank — level with text
+  { kind: 'border',  shape: 'box',  size: [2.1, 0.72, 0.4],  pos: [-3.4, -0.9, -0.4],tilt: [ 0.10,  0.35, -0.12], float: 1.5, scale: 0.9  },
 ]
 
 // Fewer blocks, composed for a narrow portrait frame.
