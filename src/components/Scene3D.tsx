@@ -79,7 +79,7 @@ const blocksDesktop: Block[] = [
   // upper-left
   { kind: 'leaf',    shape: 'box',  size: [0.9, 1.4, 0.38],  pos: [-1.8, 0.7, -0.4], tilt: [ 0.14,  0.42,  0.10], float: 2.0, scale: 0.8  },
   // upper-right
-  { kind: 'mandala', shape: 'hex',  size: [1.25, 1.25, 0.5], pos: [ 2.1, 0.1, -0.6], tilt: [ 0.16, -0.40, -0.08], float: 1.8, scale: 0.85 },
+  { kind: 'mandala', shape: 'hex',  size: [1.25, 1.25, 0.5], pos: [ 2.1, 0.7, -0.6], tilt: [ 0.16, -0.40, -0.08], float: 1.8, scale: 0.85 },
   // right flank — level with text
   { kind: 'floral',  shape: 'hex',  size: [1.15, 1.15, 0.48],pos: [ 3.3, -0.9, 0.2], tilt: [-0.12, -0.28,  0.06], float: 1.4, scale: 0.9  },
   // left flank — level with text
