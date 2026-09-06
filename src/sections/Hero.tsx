@@ -17,7 +17,7 @@ export function Hero() {
     <section
       ref={ref}
       id="top"
-      className="relative flex min-h-[100svh] flex-col items-center justify-center overflow-hidden px-6"
+      className="relative flex min-h-[100svh] flex-col items-center overflow-hidden px-6"
     >
       {/* soft radial wash behind everything */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_50%_26%,_rgba(154,164,120,0.18),_transparent_55%)]" />
@@ -32,29 +32,17 @@ export function Hero() {
 
       <motion.div
         style={{ y, opacity }}
-        className="relative z-10 mt-[6vh] flex flex-col items-center px-2 text-center md:mt-[15vh]"
+        className="absolute bottom-16 left-0 right-0 z-10 md:bottom-24 flex flex-col items-center px-2 text-center"
       >
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 27 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
-          className="eyebrow mt-8 mb-9 text-clay"
-        >
-
-        </motion.p>
-
         <h1 className="font-serif text-[11vw] leading-[1.06] font-light tracking-[-0.01em] text-ink sm:text-7xl md:text-8xl">
           <RevealWords text="Skills that speak" delay={0.5} />
-          <span className="mt-2 block italic text-sage">
-            <RevealWords text="" delay={0.75} />
-          </span>
         </h1>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.3, duration: 1 }}
-          className="mt-11 max-w-lg text-base leading-8 text-ink-soft md:text-lg"
+          className="mt-6 max-w-lg text-base leading-8 text-ink-soft md:text-lg"
         >
           Unnathi Creatives is a vocational skill training center with the sole purpose of empowering individuals with intellectual developmental disabilities.
         </motion.p>
