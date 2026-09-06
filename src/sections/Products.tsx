@@ -23,7 +23,7 @@ const products = [
   {
     name: 'Eco paper goods',
     tag: 'Sustainable',
-    desc: 'Block-printed cards, paper and bags — humble, useful, earth-kind.',
+    desc: 'Brown paper bags, newspaper bags and hand block printed gift wrappers.',
     img: '/media/paper.jpg',
   },
   {
