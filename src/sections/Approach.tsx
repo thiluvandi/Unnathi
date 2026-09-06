@@ -15,7 +15,7 @@ const steps = [
   {
     k: 'Own',
     t: 'Everyone shares',
-    d: 'As a workers’ co-operative, each person is a part-owner — with a real share in profits and in how we grow.',
+    d: 'Everyone is part of the production process with a real share in profits and in how we grow.',
   },
 ]
 
