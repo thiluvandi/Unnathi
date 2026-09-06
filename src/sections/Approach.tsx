@@ -31,8 +31,8 @@ export function Approach() {
         </Reveal>
         <Reveal delay={0.05}>
           <h2 className="mt-5 max-w-2xl font-serif text-4xl leading-[1.05] font-light md:text-6xl">
-            A co-operative,
-            <span className="italic text-gold"> owned by its makers.</span>
+            An organisation led by patient hands providing constant support.
+            <span className="italic text-gold"> </span>
           </h2>
         </Reveal>
 
