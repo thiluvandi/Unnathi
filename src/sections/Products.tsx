@@ -9,7 +9,7 @@ const products = [
     img: '/media/apparel.jpg',
   },
   {
-    name: 'Cotton & jute bags',
+    name: 'Tote bags',
     tag: 'Everyday',
     desc: 'Sturdy cloth bags, jute pouches and potlis for a plastic-free life.',
     img: '/media/bags.jpg',
