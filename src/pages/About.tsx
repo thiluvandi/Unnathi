@@ -88,9 +88,8 @@ export default function About() {
                   dignity, and specialized skill.
                 </p>
                 <p>
-                  Looking ahead, we are building toward a worker-owned cooperative
-                  model. Our vision is an inclusive enterprise where every team member
-                  holds ownership, shares in the profits, and actively contributes towards the
+                  Looking ahead and being inspired by the cooperative
+                  model, our vision is an inclusive enterprise built on team work and every team member actively contributes towards the
                   growth of the organization.
                 </p>
               </motion.div>
