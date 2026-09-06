@@ -72,7 +72,7 @@ export default function About() {
                 <p>
                   Founded in 2022 by{' '}
                   <span className="font-medium text-ink">Usha Reddy</span>, Unnathi Creatives
-                  is a social enterprise built on a powerful principle of enabling sustainable
+                  is a registered social enterprise built on a powerful principle of enabling sustainable
                   empowerment through employment.
                 </p>
                 <p>
