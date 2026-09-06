@@ -10,7 +10,7 @@ const steps = [
   {
     k: 'Create',
     t: 'They make, they earn',
-    d: 'Trained individuals create beautiful handmade products and are paid fairly for their work and contribution.',
+    d: 'Trained individuals create beautiful handmade products and are paid for their work and contribution.',
   },
   {
     k: 'Own',
