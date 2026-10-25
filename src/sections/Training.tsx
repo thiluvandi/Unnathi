@@ -20,25 +20,31 @@ const stages = [
 export function Training() {
   const section = useRef<HTMLElement>(null)
   const video = useRef<HTMLVideoElement>(null)
-  const audio = useRef<HTMLAudioElement>(null)
+  const music = useRef<HTMLAudioElement>(null)
+  const vo = useRef<HTMLAudioElement>(null)
   const [stageIndex, setStageIndex] = useState(0)
   const [progress, setProgress] = useState(0)
 
-  // Pause/play video + music based on visibility
+  // Pause/play video + audio based on visibility
   useEffect(() => {
     const el = section.current
     const v = video.current
-    const a = audio.current
+    const m = music.current
+    const r = vo.current
     if (!el || !v) return
     v.playbackRate = 1
+    if (m) m.volume = 0.25  // music sits quietly under the voiceover
+    if (r) r.volume = 1.0
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
           v.play().catch(() => {})
-          a?.play().catch(() => {})
+          m?.play().catch(() => {})
+          r?.play().catch(() => {})
         } else {
           v.pause()
-          if (a) { a.pause(); a.currentTime = 0 }
+          if (m) { m.pause(); m.currentTime = 0 }
+          if (r) { r.pause(); r.currentTime = 0 }
         }
       },
       { threshold: 0.2 },
@@ -64,7 +70,8 @@ export function Training() {
 
   return (
     <section ref={section} id="training" className="relative bg-[#1f2735] text-cream">
-      <audio ref={audio} src="/media/training-music.mp3" loop preload="none" style={{ display: 'none' }} />
+      <audio ref={music} src="/media/training-music.mp3" loop preload="none" style={{ display: 'none' }} />
+      <audio ref={vo} src="/media/training-vo.mp3" preload="none" style={{ display: 'none' }} />
       <div className="relative h-[100svh] overflow-hidden">
         {/* Video panel — full bg on mobile, right column on desktop */}
         <div
