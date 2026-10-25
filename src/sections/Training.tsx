@@ -32,6 +32,8 @@ export function Training() {
     const el = section.current
     const v = video.current
     if (!el || !v) return
+    // 0.3× speed → each stage lingers ~3× longer, full cycle ≈ 17 s
+    v.playbackRate = 0.3
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) v.play().catch(() => {})
