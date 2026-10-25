@@ -24,34 +24,54 @@ export function Training() {
   const vo = useRef<HTMLAudioElement>(null)
   const [stageIndex, setStageIndex] = useState(0)
   const [progress, setProgress] = useState(0)
+  const [soundOn, setSoundOn] = useState(false)
+  const inViewRef = useRef(false)
 
-  // Pause/play video + audio based on visibility
+  const startAudio = () => {
+    const m = music.current
+    const r = vo.current
+    if (m) { m.volume = 0.25; m.play().catch(() => {}) }
+    if (r) { r.volume = 1.0; r.play().catch(() => {}) }
+  }
+
+  const stopAudio = () => {
+    const m = music.current
+    const r = vo.current
+    if (m) { m.pause(); m.currentTime = 0 }
+    if (r) { r.pause(); r.currentTime = 0 }
+  }
+
+  const toggleSound = () => {
+    setSoundOn((prev) => {
+      const next = !prev
+      if (next && inViewRef.current) startAudio()
+      else stopAudio()
+      return next
+    })
+  }
+
+  // Video visibility — always plays; audio only if user enabled sound
   useEffect(() => {
     const el = section.current
     const v = video.current
-    const m = music.current
-    const r = vo.current
     if (!el || !v) return
-    v.playbackRate = 1
-    if (m) m.volume = 0.25  // music sits quietly under the voiceover
-    if (r) r.volume = 1.0
     const io = new IntersectionObserver(
       ([e]) => {
+        inViewRef.current = e.isIntersecting
         if (e.isIntersecting) {
           v.play().catch(() => {})
-          m?.play().catch(() => {})
-          r?.play().catch(() => {})
+          if (soundOn) startAudio()
         } else {
           v.pause()
-          if (m) { m.pause(); m.currentTime = 0 }
-          if (r) { r.pause(); r.currentTime = 0 }
+          stopAudio()
         }
       },
       { threshold: 0.2 },
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [soundOn])
 
   // Advance slideshow on a fixed timer — independent of video speed
   const STAGE_DURATION = 2500 // ms per stage
@@ -94,16 +114,56 @@ export function Training() {
 
         {/* Left text column */}
         <div className="absolute inset-y-0 left-0 z-10 flex w-full flex-col justify-end px-7 pb-16 md:justify-center md:pb-0 md:w-[45%] md:px-[5vw]">
-          {/* Desktop eyebrow */}
-          <p className="eyebrow hidden w-fit rounded-md bg-cream/10 px-3 py-1 font-bold text-gold drop-shadow-lg backdrop-blur-sm md:block">
-            Inside the studio · Training
-          </p>
+          {/* Desktop eyebrow + sound toggle */}
+          <div className="hidden md:flex items-center gap-3">
+            <p className="eyebrow w-fit rounded-md bg-cream/10 px-3 py-1 font-bold text-gold drop-shadow-lg backdrop-blur-sm">
+              Inside the studio · Training
+            </p>
+            <button
+              onClick={toggleSound}
+              aria-label={soundOn ? 'Mute' : 'Unmute'}
+              className="flex h-8 w-8 items-center justify-center rounded-full bg-cream/10 backdrop-blur-sm transition hover:bg-cream/20"
+            >
+              {soundOn ? (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4 text-gold">
+                  <path d="M11 5L6 9H2v6h4l5 4V5z" strokeLinejoin="round" />
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" strokeLinecap="round" />
+                </svg>
+              ) : (
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4 text-cream/50">
+                  <path d="M11 5L6 9H2v6h4l5 4V5z" strokeLinejoin="round" />
+                  <line x1="23" y1="9" x2="17" y2="15" strokeLinecap="round" />
+                  <line x1="17" y1="9" x2="23" y2="15" strokeLinecap="round" />
+                </svg>
+              )}
+            </button>
+          </div>
 
           {/* Mobile wrapper */}
           <div className="rounded-xl bg-black/40 px-4 py-3 backdrop-blur-md md:rounded-none md:bg-transparent md:p-0 md:backdrop-blur-none">
-            <p className="eyebrow text-xs font-bold text-white drop-shadow-lg md:hidden">
-              Inside the studio · Training
-            </p>
+            <div className="flex items-center justify-between md:hidden">
+              <p className="eyebrow text-xs font-bold text-white drop-shadow-lg">
+                Inside the studio · Training
+              </p>
+              <button
+                onClick={toggleSound}
+                aria-label={soundOn ? 'Mute' : 'Unmute'}
+                className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10"
+              >
+                {soundOn ? (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3.5 w-3.5 text-gold">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" strokeLinejoin="round" />
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" strokeLinecap="round" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3.5 w-3.5 text-white/50">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z" strokeLinejoin="round" />
+                    <line x1="23" y1="9" x2="17" y2="15" strokeLinecap="round" />
+                    <line x1="17" y1="9" x2="23" y2="15" strokeLinecap="round" />
+                  </svg>
+                )}
+              </button>
+            </div>
 
             {/* Slideshow */}
             <div className="relative mt-2 h-20 md:mt-8 md:h-60">
