@@ -125,7 +125,7 @@ export function Training() {
   return (
     <section ref={section} id="training" className="relative bg-[#1f2735] text-cream">
       <audio ref={musicEl} src="/media/training-music.mp3" loop preload="none" style={{ display: 'none' }} />
-      <audio ref={voEl} src="/media/training-vo.mp3" preload="none" style={{ display: 'none' }} />
+      <audio ref={voEl} src="/media/training-vo.mp3" loop preload="none" style={{ display: 'none' }} />
 
       <div className="relative h-[100svh] overflow-hidden">
         {/* Video panel */}
