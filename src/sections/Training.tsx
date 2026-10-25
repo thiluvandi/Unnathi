@@ -19,32 +19,32 @@ const STAGE_MS = 2500 // fallback timer when sound is off
 export function Training() {
   const section = useRef<HTMLElement>(null)
   const video = useRef<HTMLVideoElement>(null)
-  const musicEl = useRef<HTMLAudioElement>(null)
   const voEl = useRef<HTMLAudioElement>(null)
 
   const [stageIndex, setStageIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const [soundOn, setSoundOn] = useState(false)
+
   const inViewRef = useRef(false)
   const soundOnRef = useRef(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // ─── audio helpers ────────────────────────────────────────────────────────
-  const startAudio = useCallback(() => {
-    const m = musicEl.current
+  // ─── VO helpers ──────────────────────────────────────────────────────────
+  const playVO = useCallback(() => {
     const r = voEl.current
-    if (m) { m.volume = 0.02; m.play().catch(() => {}) }
-    if (r) { r.volume = 1.0; r.play().catch(() => {}) }
+    if (!r) return
+    r.volume = 1.0
+    r.play().catch(() => {})
   }, [])
 
-  const stopAudio = useCallback(() => {
-    const m = musicEl.current
+  const stopVO = useCallback(() => {
     const r = voEl.current
-    if (m) { m.pause(); m.currentTime = 0 }
-    if (r) { r.pause(); r.currentTime = 0 }
+    if (!r) return
+    r.pause()
+    r.currentTime = 0
   }, [])
 
-  // ─── sync slideshow to VO when sound is on ────────────────────────────────
+  // ─── sync slideshow to VO timeupdate ─────────────────────────────────────
   useEffect(() => {
     const r = voEl.current
     if (!r) return
@@ -62,11 +62,11 @@ export function Training() {
     return () => r.removeEventListener('timeupdate', onTime)
   }, [])
 
-  // ─── fallback timer when sound is off ────────────────────────────────────
+  // ─── fallback timer (runs when sound is off) ──────────────────────────────
   const startTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current)
     timerRef.current = setInterval(() => {
-      if (soundOnRef.current) return // VO is driving — skip
+      if (soundOnRef.current) return
       setStageIndex((i) => {
         const next = (i + 1) % stages.length
         setProgress((next + 1) / stages.length)
@@ -89,45 +89,39 @@ export function Training() {
         inViewRef.current = e.isIntersecting
         if (e.isIntersecting) {
           v.play().catch(() => {})
-          // Pre-buffer audio so toggle is instant when clicked
-          musicEl.current?.load()
-          voEl.current?.load()
+          voEl.current?.load() // pre-buffer so toggle is instant
           startTimer()
-          if (soundOnRef.current) startAudio()
+          if (soundOnRef.current) playVO()
         } else {
           v.pause()
           stopTimer()
-          stopAudio()
+          stopVO()
         }
       },
       { threshold: 0.2 },
     )
     io.observe(el)
     return () => { io.disconnect(); stopTimer() }
-  }, [startAudio, stopAudio, startTimer, stopTimer])
+  }, [playVO, stopVO, startTimer, stopTimer])
 
-  // ─── sound toggle ─────────────────────────────────────────────────────────
-  const toggleSound = () => {
-    setSoundOn((prev) => {
-      const next = !prev
-      soundOnRef.current = next
-      if (next && inViewRef.current) {
-        startAudio()
-      } else {
-        stopAudio()
-        // reset slideshow to beginning when muting
-        setStageIndex(0)
-        setProgress(0)
-      }
-      return next
-    })
-  }
+  // ─── sound toggle — side effects outside setSoundOn ───────────────────────
+  const toggleSound = useCallback(() => {
+    const next = !soundOnRef.current
+    soundOnRef.current = next
+    setSoundOn(next)
+    if (next && inViewRef.current) {
+      playVO()
+    } else {
+      stopVO()
+      setStageIndex(0)
+      setProgress(0)
+    }
+  }, [playVO, stopVO])
 
   const s = stages[stageIndex]
 
   return (
     <section ref={section} id="training" className="relative bg-[#1f2735] text-cream">
-      <audio ref={musicEl} src="/media/training-music.mp3" loop preload="auto" style={{ display: 'none' }} />
       <audio ref={voEl} src="/media/training-vo.mp3" loop preload="auto" style={{ display: 'none' }} />
 
       <div className="relative h-[100svh] overflow-hidden">
