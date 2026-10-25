@@ -17,10 +17,6 @@ const stages = [
   },
 ] as const
 
-const DUR = 5.0
-
-type StageData = (typeof stages)[number]
-
 export function Training() {
   const section = useRef<HTMLElement>(null)
   const video = useRef<HTMLVideoElement>(null)
@@ -32,8 +28,7 @@ export function Training() {
     const el = section.current
     const v = video.current
     if (!el || !v) return
-    // 0.3× speed → each stage lingers ~3× longer, full cycle ≈ 17 s
-    v.playbackRate = 0.3
+    v.playbackRate = 1
     const io = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) v.play().catch(() => {})
@@ -45,18 +40,17 @@ export function Training() {
     return () => io.disconnect()
   }, [])
 
-  // Drive slideshow from video currentTime
+  // Advance slideshow on a fixed timer — independent of video speed
+  const STAGE_DURATION = 2500 // ms per stage
   useEffect(() => {
-    const v = video.current
-    if (!v) return
-    const onTime = () => {
-      const t = v.currentTime
-      const idx = (stages as readonly StageData[]).findIndex((s) => t >= s.start && t < s.end)
-      if (idx >= 0) setStageIndex(idx)
-      setProgress(t / DUR)
-    }
-    v.addEventListener('timeupdate', onTime)
-    return () => v.removeEventListener('timeupdate', onTime)
+    const id = setInterval(() => {
+      setStageIndex((i) => {
+        const next = (i + 1) % stages.length
+        setProgress((next + 1) / stages.length)
+        return next
+      })
+    }, STAGE_DURATION)
+    return () => clearInterval(id)
   }, [])
 
   const s = stages[stageIndex]
