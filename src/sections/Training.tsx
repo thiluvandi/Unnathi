@@ -33,7 +33,7 @@ export function Training() {
   const startAudio = useCallback(() => {
     const m = musicEl.current
     const r = voEl.current
-    if (m) { m.volume = 0.07; m.play().catch(() => {}) }
+    if (m) { m.volume = 0.02; m.play().catch(() => {}) }
     if (r) { r.volume = 1.0; r.play().catch(() => {}) }
   }, [])
 
