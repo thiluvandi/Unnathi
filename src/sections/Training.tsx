@@ -33,7 +33,7 @@ export function Training() {
   const startAudio = useCallback(() => {
     const m = musicEl.current
     const r = voEl.current
-    if (m) { m.volume = 0.25; m.play().catch(() => {}) }
+    if (m) { m.volume = 0.07; m.play().catch(() => {}) }
     if (r) { r.volume = 1.0; r.play().catch(() => {}) }
   }, [])
 
@@ -89,6 +89,9 @@ export function Training() {
         inViewRef.current = e.isIntersecting
         if (e.isIntersecting) {
           v.play().catch(() => {})
+          // Pre-buffer audio so toggle is instant when clicked
+          musicEl.current?.load()
+          voEl.current?.load()
           startTimer()
           if (soundOnRef.current) startAudio()
         } else {
@@ -124,8 +127,8 @@ export function Training() {
 
   return (
     <section ref={section} id="training" className="relative bg-[#1f2735] text-cream">
-      <audio ref={musicEl} src="/media/training-music.mp3" loop preload="none" style={{ display: 'none' }} />
-      <audio ref={voEl} src="/media/training-vo.mp3" loop preload="none" style={{ display: 'none' }} />
+      <audio ref={musicEl} src="/media/training-music.mp3" loop preload="auto" style={{ display: 'none' }} />
+      <audio ref={voEl} src="/media/training-vo.mp3" loop preload="auto" style={{ display: 'none' }} />
 
       <div className="relative h-[100svh] overflow-hidden">
         {/* Video panel */}
