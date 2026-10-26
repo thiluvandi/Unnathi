@@ -126,7 +126,7 @@ export function Nav() {
         initial={{ y: -80 }}
         animate={{ y: 0 }}
         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-        className="fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
+        className="pointer-events-none fixed top-0 left-0 right-0 z-50 flex justify-center px-4 pt-4"
       >
         <div className="w-full max-w-6xl">
         <nav
@@ -134,7 +134,7 @@ export function Nav() {
             if (window.matchMedia('(hover: hover)').matches) setHovered(true)
           }}
           onMouseLeave={() => setHovered(false)}
-          className={`relative flex items-center overflow-hidden rounded-full border backdrop-blur-3xl backdrop-saturate-200 transition-all duration-500 ease-out w-full px-4 py-2.5 ${
+          className={`pointer-events-auto relative flex items-center overflow-hidden rounded-full border backdrop-blur-3xl backdrop-saturate-200 transition-all duration-500 ease-out w-full px-4 py-2.5 ${
             chip ? 'max-w-fit' : 'max-w-full'
           } border-white/30 bg-white/10 shadow-[inset_0_1.5px_0_rgba(255,255,255,0.75),inset_0_-1px_0_rgba(255,255,255,0.15),0_8px_32px_-8px_rgba(32,28,22,0.18),0_2px_8px_-2px_rgba(32,28,22,0.08)]`}
         >
