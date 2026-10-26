@@ -109,7 +109,7 @@ export function Training() {
     const next = !soundOnRef.current
     soundOnRef.current = next
     setSoundOn(next)
-    if (next && inViewRef.current) {
+    if (next) {
       playVO()
     } else {
       stopVO()
