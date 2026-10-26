@@ -11,10 +11,9 @@ const stages = [
   { k: 'From learning to', accent: 'creating an opportunity.', finale: true },
 ] as const
 
-// Timestamps (seconds) when each stage's narration begins in training-vo.mp3
 const VO_CUE = [0, 2.59, 6.68, 8.15, 10.24, 12.87, 14.84]
 const VO_DUR = 21.16
-const STAGE_MS = 2500 // fallback timer when sound is off
+const STAGE_MS = 2500
 
 export function Training() {
   const section = useRef<HTMLElement>(null)
@@ -25,26 +24,27 @@ export function Training() {
   const [progress, setProgress] = useState(0)
   const [soundOn, setSoundOn] = useState(false)
 
-  const inViewRef = useRef(false)
   const soundOnRef = useRef(false)
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // ─── VO helpers ──────────────────────────────────────────────────────────
-  const playVO = useCallback(() => {
-    const r = voEl.current
-    if (!r) return
-    r.volume = 1.0
-    r.play().catch(() => {})
+  // ─── fallback slideshow timer ─────────────────────────────────────────────
+  const startTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      if (soundOnRef.current) return
+      setStageIndex((i) => {
+        const next = (i + 1) % stages.length
+        setProgress((next + 1) / stages.length)
+        return next
+      })
+    }, STAGE_MS)
   }, [])
 
-  const stopVO = useCallback(() => {
-    const r = voEl.current
-    if (!r) return
-    r.pause()
-    r.currentTime = 0
+  const stopTimer = useCallback(() => {
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
   }, [])
 
-  // ─── sync slideshow to VO timeupdate ─────────────────────────────────────
+  // ─── sync slideshow to VO ────────────────────────────────────────────────
   useEffect(() => {
     const r = voEl.current
     if (!r) return
@@ -62,49 +62,28 @@ export function Training() {
     return () => r.removeEventListener('timeupdate', onTime)
   }, [])
 
-  // ─── fallback timer (runs when sound is off) ──────────────────────────────
-  const startTimer = useCallback(() => {
-    if (timerRef.current) clearInterval(timerRef.current)
-    timerRef.current = setInterval(() => {
-      if (soundOnRef.current) return
-      setStageIndex((i) => {
-        const next = (i + 1) % stages.length
-        setProgress((next + 1) / stages.length)
-        return next
-      })
-    }, STAGE_MS)
-  }, [])
-
-  const stopTimer = useCallback(() => {
-    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
-  }, [])
-
-  // ─── visibility observer ─────────────────────────────────────────────────
+  // ─── observer controls VIDEO only; audio is toggle-only ──────────────────
   useEffect(() => {
     const el = section.current
     const v = video.current
     if (!el || !v) return
     const io = new IntersectionObserver(
       ([e]) => {
-        inViewRef.current = e.isIntersecting
         if (e.isIntersecting) {
           v.play().catch(() => {})
-          voEl.current?.load() // pre-buffer so toggle is instant
           startTimer()
-          if (soundOnRef.current) playVO()
         } else {
           v.pause()
           stopTimer()
-          stopVO()
         }
       },
       { threshold: 0.2 },
     )
     io.observe(el)
     return () => { io.disconnect(); stopTimer() }
-  }, [playVO, stopVO, startTimer, stopTimer])
+  }, [startTimer, stopTimer])
 
-  // ─── sound toggle — truth comes from the audio element, not a ref ─────────
+  // ─── sound toggle ─────────────────────────────────────────────────────────
   const toggleSound = useCallback(() => {
     const r = voEl.current
     if (!r) return
@@ -147,7 +126,7 @@ export function Training() {
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent md:bg-gradient-to-r md:from-[#1f2735]/70 md:via-transparent md:to-transparent" />
 
-          {/* Speaker toggle — top-right of video */}
+          {/* Speaker toggle */}
           <button
             onClick={toggleSound}
             aria-label={soundOn ? 'Mute' : 'Unmute'}
@@ -179,7 +158,6 @@ export function Training() {
               Inside the studio · Training
             </p>
 
-            {/* Slideshow */}
             <div className="relative mt-2 h-20 md:mt-8 md:h-60">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -209,7 +187,6 @@ export function Training() {
               </AnimatePresence>
             </div>
 
-            {/* Stage ticks */}
             <div className="mt-3 flex items-center gap-1.5 md:mt-8">
               {stages.map((_, i) => (
                 <motion.span
@@ -222,7 +199,6 @@ export function Training() {
               ))}
             </div>
 
-            {/* Progress bar */}
             <div className="mt-3 h-px w-32 overflow-hidden bg-cream/15 md:mt-5 md:w-44">
               <motion.div
                 animate={{ scaleX: progress }}
