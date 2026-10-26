@@ -104,19 +104,24 @@ export function Training() {
     return () => { io.disconnect(); stopTimer() }
   }, [playVO, stopVO, startTimer, stopTimer])
 
-  // ─── sound toggle — side effects outside setSoundOn ───────────────────────
+  // ─── sound toggle — truth comes from the audio element, not a ref ─────────
   const toggleSound = useCallback(() => {
-    const next = !soundOnRef.current
-    soundOnRef.current = next
-    setSoundOn(next)
-    if (next) {
-      playVO()
+    const r = voEl.current
+    if (!r) return
+    if (r.paused) {
+      soundOnRef.current = true
+      setSoundOn(true)
+      r.volume = 1.0
+      r.play().catch(() => {})
     } else {
-      stopVO()
+      soundOnRef.current = false
+      setSoundOn(false)
+      r.pause()
+      r.currentTime = 0
       setStageIndex(0)
       setProgress(0)
     }
-  }, [playVO, stopVO])
+  }, [])
 
   const s = stages[stageIndex]
 
