@@ -1,6 +1,8 @@
 import { Reveal } from '../components/Reveal'
 import { TiltCard } from '../components/TiltCard'
 
+const CATALOGUE = '/media/unnathi-catalogue-2026.pdf'
+
 const products = [
   {
     name: 'Hand block-printed apparel',
@@ -98,6 +100,36 @@ export function Products() {
             </Reveal>
           ))}
         </div>
+
+        {/* Full catalogue — view in browser or download the PDF */}
+        <Reveal delay={0.1}>
+          <div className="mt-14 flex flex-col items-start justify-between gap-6 rounded-3xl border border-ink/10 bg-cream px-7 py-8 md:flex-row md:items-center md:px-10">
+            <div>
+              <p className="eyebrow text-clay">Catalogue 2026</p>
+              <h3 className="mt-3 font-serif text-2xl leading-tight font-light text-ink md:text-3xl">
+                See every piece we make.
+              </h3>
+              <p className="mt-2 text-sm text-ink-soft">The full range of products, in one catalogue (PDF).</p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={CATALOGUE}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full bg-clay px-6 py-3 text-sm font-medium text-cream transition-all duration-300 hover:-translate-y-0.5 hover:bg-ink hover:shadow-xl"
+              >
+                View all products
+              </a>
+              <a
+                href={CATALOGUE}
+                download="Unnathi-Catalogue-2026.pdf"
+                className="rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink transition-all hover:border-ink hover:-translate-y-0.5"
+              >
+                Download catalogue ↓
+              </a>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )
