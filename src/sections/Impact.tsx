@@ -4,7 +4,7 @@ import { CraftMark } from '../components/CraftMark'
 
 // NOTE: placeholder figures — replace with Unnathi's real numbers.
 const stats = [
-  { n: 25, s: '+', label: 'Adults given dignified, paid work' },
+  { n: 25, s: '+', label: 'Families impacted after training. Taking slow but steady steps towards livelihood' },
   { n: 8, s: '', label: 'Handmade product categories' },
   { n: 5000, s: '+', label: 'Pieces crafted by hand' },
   { n: 100, s: '%', label: 'Natural, eco-friendly materials' },
