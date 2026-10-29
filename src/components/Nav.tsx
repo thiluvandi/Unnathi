@@ -192,7 +192,7 @@ export function Nav() {
                 transition={{ duration: 0.18 }}
                 className="relative flex flex-1 items-center gap-2"
               >
-                <ul className="absolute inset-0 hidden items-center justify-center gap-7 md:flex">
+                <ul className="absolute inset-0 hidden items-center justify-center gap-4 md:flex lg:gap-7">
                   {links.map((l) => {
                     const isActive = l.href.startsWith('/') && !l.href.startsWith('/#')
                       ? location.pathname === l.href
@@ -201,7 +201,7 @@ export function Nav() {
                       <li key={l.href}>
                         <NavLink
                           href={l.href}
-                          className="group relative text-sm font-medium text-ink/70 transition-colors hover:text-ink"
+                          className="group relative whitespace-nowrap text-[0.8rem] font-bold text-ink/70 lg:text-base transition-colors hover:text-ink"
                         >
                           {l.label}
                           <span className={`absolute -bottom-1 left-0 h-px bg-clay transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
