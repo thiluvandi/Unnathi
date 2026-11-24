@@ -5,6 +5,7 @@ import { Marquee } from './components/Marquee'
 import { Hero } from './sections/Hero'
 import { WhatWeDo } from './sections/WhatWeDo'
 import { Makers } from './sections/Makers'
+import { BlockLibrary } from './sections/BlockLibrary'
 import { Approach } from './sections/Approach'
 import { Training } from './sections/Training'
 import { Products } from './sections/Products'
@@ -25,6 +26,7 @@ export default function App() {
           <Marquee />
           <Training />
           <Makers />
+          <BlockLibrary />
           <Approach />
           <WhatWeDo />
           <Products />

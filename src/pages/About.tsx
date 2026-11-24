@@ -56,6 +56,20 @@ export default function About() {
             </motion.h1>
           </section>
 
+          {/* Header photo — peacock, triangle and elephant blocks */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="mx-auto -mt-8 mb-24 max-w-6xl px-6 md:-mt-10 md:mb-32"
+          >
+            <img
+              src="/media/about-blocks.jpg"
+              alt="Three hand-carved printing blocks — a peacock, a triangle and an elephant"
+              className="aspect-[16/9] w-full rounded-3xl object-cover"
+            />
+          </motion.div>
+
           {/* Origin story + video */}
           <section
             aria-label="Our story"
@@ -162,9 +176,15 @@ export default function About() {
           {/* CTA */}
           <section
             aria-label="Get in touch"
-            className="bg-ink py-24 text-cream md:py-36"
+            className="relative overflow-hidden bg-ink py-24 text-cream md:py-36"
           >
-            <div className="mx-auto max-w-4xl px-6 text-center">
+            {/* paint-splattered printing table, faded into the dark */}
+            <div
+              className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.28]"
+              style={{ backgroundImage: 'url(/media/paint-table.jpg)' }}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink/80" />
+            <div className="relative mx-auto max-w-4xl px-6 text-center">
               <p className="eyebrow text-clay-soft">Work with us</p>
               <h2 className="mx-auto mt-6 max-w-2xl font-serif text-4xl leading-[1.05] font-light md:text-6xl">
                 Every order{' '}

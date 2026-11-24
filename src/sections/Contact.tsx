@@ -8,6 +8,12 @@ export function Contact() {
       id="contact"
       className="relative overflow-hidden bg-ink py-28 text-cream md:py-40"
     >
+      {/* paint-splattered printing table, faded into the dark */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-cover bg-center opacity-[0.28]"
+        style={{ backgroundImage: 'url(/media/paint-table.jpg)' }}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-ink/60 via-ink/30 to-ink/80" />
       <div className="pointer-events-none absolute -top-40 left-1/2 h-[36rem] w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,_rgba(185,138,68,0.28),_transparent_65%)]" />
       <CraftMark className="pointer-events-none absolute -top-10 -left-10 h-72 w-72 -rotate-12 text-cream opacity-[0.05]" />
       <CraftMark className="pointer-events-none absolute -bottom-10 -right-10 h-80 w-80 rotate-12 text-gold opacity-[0.04]" />
