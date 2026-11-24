@@ -9,7 +9,7 @@ const photos = [
   { src: '/media/blocks/tray.jpg', alt: 'A tray of small numbered blocks seen from above', w: 'w-[18rem]' },
   { src: '/media/blocks/wall.jpg', alt: 'A flower block, chevron border blocks and a green geometric block up close', w: 'w-[22rem]' },
   { src: '/media/blocks/basket.jpg', alt: 'A wire basket of well-used blocks resting on newspaper', w: 'w-[22rem]' },
-  { src: '/media/blocks/workshop.jpg', alt: 'The workshop corner — racks of blocks beside buckets of ink', w: 'w-[28rem]' },
+  { src: '/media/blocks/workshop.jpg', alt: 'The workshop corner — racks of hand-carved blocks', w: 'w-[40rem]' },
 ]
 
 export function BlockLibrary() {
